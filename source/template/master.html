@@ -1,0 +1,131 @@
+<html>
+	<head>
+		<title></title>
+		<style>
+			header, footer{
+				width:100%; 
+				height:20px; 
+				border:1px solid #000; 
+				margin:20px 0 20px 0;
+			}
+			
+			#container{
+				width:100%; 
+				height:200px; 
+				border:1px solid #000; 
+				margin:40px 0 40px 0;
+			}
+			
+			<!-- Loading style -->
+			.dialog-background{
+				background: none repeat scroll 0 0 rgba(255, 0, 25, 0.5);
+				height: 100%;
+				left: 0;
+				margin: 0;
+				padding: 0;
+				position: absolute;
+				top: 0;
+				width: 100%;
+				z-index: 100;
+			}
+			.dialog-loading-wrapper {
+				/*background: none repeat scroll 0 0 rgba(0, 0, 0, 0);*/
+				border: 0 none;
+				height: 100px;
+				left: 50%;
+				margin-left: -50px;
+				margin-top: -50px;
+				position: fixed;
+				top: 50%;
+				width: 100px;
+				z-index: 9999999;
+			}
+			.dialog-loading-icon {
+				/*background-color: #FFFFFF !important;*/
+				border-radius: 13px;
+				display: block;
+				height: 75px;
+				line-height: 175px;
+				margin: 0;
+				padding: 1px;
+				text-align: center;
+				width: 75px;
+				font-size:18px;
+/*				background-image: url(../main/assets/img/loading.gif);*/
+				color:white;
+			}
+			.loading-overlay {
+				background-color: #000;
+				bottom: 0;
+				display: none;
+				left: 0;
+				opacity: 0.7;
+				filter: alpha(opacity = 70); /* IE7 & 8 */
+				position: fixed;
+				right: 0;
+				top: 0;
+				z-index: 99;
+			}
+		</style>
+	</head>
+	<body>
+		<header></header>
+		
+		<div id="container"></div>
+		
+		<footer></footer>
+		<div class="loading-overlay">
+			<div class="dialog-loading-wrapper">
+				<span class="dialog-loading-icon">Loading....</span>
+			</div>
+		</div>
+    
+	</body>
+	
+	<script type="text/javascript" src="/_tgengine/WEB-INF/codesource/jquery.js"></script>
+	<script type="text/javascript">
+		
+		var isFirstLoad = true;
+		
+		function ChangeUrl(url) {
+			if (typeof (history.pushState) != "undefined") {
+				history.pushState({}, null, url);
+			} else {
+				alert("Browser does not support HTML5.");
+			}
+		}
+		
+		function loadView(file){
+			$(".loading-overlay").fadeIn(100);
+			if(isFirstLoad){
+				isFirstLoad = false;
+				var headerfile = '/_tgengine/WEB-INF/codesource/header.html';
+				var footerfile = '/_tgengine/WEB-INF/codesource/footer.html';
+				$("header").load(headerfile, function(){
+
+				});
+				$("footer").load(footerfile, function(){
+
+				});
+			}
+			
+			$("#container").load(file, function(){
+				// do some stuff here...
+				
+			  	$(".loading-overlay").fadeOut(100);
+			});
+		}
+		
+		var arrcurURL = document.URL.split('/');
+		var curURL = '/_tgengine/WEB-INF/codesource/' + arrcurURL[arrcurURL.length-1] + '.html';
+		loadView(curURL);
+		
+		$("body").on('click', 'a.linkmenu', function(e){
+			e.preventDefault();
+			var url = $(this).attr('href');
+			var file = '/_tgengine/WEB-INF/codesource/'+ url + '.html';
+			ChangeUrl(url);
+			loadView(file);
+		});
+	</script>
+</html>

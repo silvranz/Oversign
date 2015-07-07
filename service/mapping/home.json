@@ -1,0 +1,12 @@
+{
+	"html": [{
+		"source":"home.html",
+		"target":""
+	},{
+		"source":"tes.html",
+		"target":"tesChild"
+	}],
+	"js": [],
+	"css":[],
+	"external":[]
+}
