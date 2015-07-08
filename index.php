@@ -15,13 +15,13 @@
 		<script type="text/javascript" src="<?=BASEPATH?>source/library/js/jquery.js"></script>
 	    <script type="text/javascript" src="<?=BASEPATH?>source/library/external/bootstrap/js/bootstrap.min.js"></script>
 		<style>
-			body{
+			/*body{
 				padding:0;
 			}
 			#content{
 				width:100%;
 				height:90%;
-			}
+			}*/
 			.blocker{
 				background-color:rgba(0, 0, 0, 0.5);
 				width: 100%;
@@ -95,7 +95,7 @@
 		<header>
 			<?php include("source/template/header.html"); ?>
 		</header>		
-		<div id="content">			
+		<div id="content" class="container theme-showcase">			
 		</div>		
 		<footer class="bs-docs-footer" role="contentinfo">
 			<?php include("source/template/footer.html"); ?>
