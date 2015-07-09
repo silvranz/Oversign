@@ -11,85 +11,13 @@
     	<!-- Bootstrap theme -->
     	<link href="<?=BASEPATH?>source/library/external/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
     	<!-- Carousel -->
+    	<link href="<?=BASEPATH?>source/library/css/main.css" rel="stylesheet">
+    	<!-- Main -->
     	<link href="<?=BASEPATH?>source/library/external/bootstrap/css/carousel.css" rel="stylesheet">
+	    <script type="text/javascript" src="<?=BASEPATH?>source/library/js/config.js"></script>
 		<script type="text/javascript" src="<?=BASEPATH?>source/library/js/jquery.js"></script>
 	    <script type="text/javascript" src="<?=BASEPATH?>source/library/external/bootstrap/js/bootstrap.min.js"></script>
-		<style>
-			/*body{
-				padding:0;
-			}
-			#content{
-				width:100%;
-				height:90%;
-			}*/
-			.blocker{
-				background-color:rgba(0, 0, 0, 0.5);
-				width: 100%;
-				height: 100%;
-				position: relative;
-				top: 0;
-				left: 0;
-				display:none;
-			}
-			.blocker img{
-				width:50%;
-				height:50%;
-				left:25%;
-				top:25%;
-				position:absolute;
-			}
-		</style>
-		<script>
-			function loadContent(url){
-				history.pushState({}, null, url);
-				console.log(url);
-				$.ajax({
-					type:"POST",
-					url:"<?=BASEPATH?>service/",
-					data:{url:url},
-					beforeSend:function(){
-						$("#content").html($(".blocker").clone().show());
-					},
-					success:function(data){
-						$("#content").html(data);
-					}
-				})
-			}
-			function defaultValue(variable,value){
-				return typeof variable !== "undefined"?  variable:value;
-			}
-			function defaultPopupAnimation(){
-				return {};
-			}
-			$(document).ready(function(){
-				$("*").click(function(e){
-					if($(this).hasClass("blog-nav-item")){
-						e.preventDefault();
-						loadContent($(this).attr("href"));
-					}					
-				});
-				loadContent("home");
-				$.fn.customPopup = function(mode,animation,time){
-					mode = defaultValue(mode,"fullscreen");
-					animation = defaultValue(animation,defaultPopupAnimation());
-					time = defaultValue(time,500);
-					switch(mode){
-						case "fullscreen":
-							
-							break;
-						case "left":
-							break;
-						case "right":
-							break;
-						case "top":
-							break;
-						case "bottom":
-							break;
-					}
-					return this;
-				}
-			});
-		</script>
+	    <script type="text/javascript" src="<?=BASEPATH?>source/library/js/main.js"></script>
 	</head>
 	<body>
 		<header>
