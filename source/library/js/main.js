@@ -15,11 +15,37 @@ function loadContent(url){
 		}
 	})
 }
+function closeBlocker(){
+	$("div[data-class='blocker']").remove();
+}
 function defaultValue(variable,value){
 	return typeof variable !== "undefined"?  variable:value;
 }
 function defaultPopupAnimation(){
 	return {};
+}
+function fullScreenPopup(content){
+	var blocker = $("<div data-class='blocker'>").css({
+		"position":"fixed",
+		"top":0,
+		"left":0,
+		"width":screen.width,
+		"height":screen.height,
+		"background-color":"rgba(0,0,0,0.5)"
+	});
+	var centerDiv = $("<div>").css({
+		"width":screen.width/2,
+		"height":screen.height/2,
+		"position":"fixed",
+		"top":"50%",
+		"left":"50%",
+		"margin-top":"-15%",
+		"margin-left":"-25%",
+		"border":"1px solid black",
+		"background-color":"white"
+	}).html(content);
+	$(blocker).html(centerDiv);
+	$("body").append(blocker);
 }
 $(document).ready(function(){
 	var onloadTarget = window.location.href.replace(BASE_URL,"");
@@ -37,7 +63,7 @@ $(document).ready(function(){
 		time = defaultValue(time,500);
 		switch(mode){
 			case "fullscreen":
-				
+				fullScreenPopup(this);
 				break;
 			case "left":
 				break;
