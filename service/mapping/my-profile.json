@@ -1,0 +1,9 @@
+{
+	"html": [{
+		"source":"my-profile.html",
+		"target":""
+	}],
+	"js": [],
+	"css":[],
+	"external":[]
+}

@@ -6,12 +6,12 @@
 
 
 	.notification {
-		 background:transparent url('../../images/icon-website/icon-notification.png');
+		 background:transparent url('../../../../images/icon-website/icon-notification.png');
 		 background-size: cover;
 	}
 
 	.notification:hover {
-	   background-image: url('../../images/icon-website/icon-notification-hover.png');
+	   background-image: url('../../../../images/icon-website/icon-notification-hover.png');
 	}
 	/* Featurettes
 ------------------------- */
