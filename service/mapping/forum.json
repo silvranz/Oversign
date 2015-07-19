@@ -1,0 +1,9 @@
+{
+	"html": [{
+		"source":"forum.html",
+		"target":""
+	}],
+	"js": [],
+	"css":["vertical-menu"],
+	"external":[]
+}
