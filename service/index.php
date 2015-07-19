@@ -29,17 +29,26 @@
 		}
 		else if($key == "js"){
 			foreach($value as $script){
-				$retDoc->createElement('script',' ')->setAttribute ('src', 'http://localhost/oversign/source/library/js/'.$script.".js");
+				$tempScript = $retDoc->createElement('script',' ');
+				$tempScript->setAttribute ('type', 'text/javascript');
+				$tempScript->setAttribute ('src', 'http://localhost/oversign/source/library/js/'.$script.".js");
+				$body = $retDoc->getElementsByTagName('body')->item(0);
+				$body->insertBefore($tempScript,$body->firstChild);
 			}
 		}
 		else if($key == "css"){
 			foreach($value as $style){
-				$retDoc->createElement('link','')->setAttribute ('src', 'http://localhost/oversign/source/library/css/'.$style.".css");
+				$tempStyle = $retDoc->createElement('link','');
+				$tempStyle->setAttribute ('rel', 'stylesheet');
+				$tempStyle->setAttribute ('type', 'text/css');
+				$tempStyle->setAttribute ('href', 'http://localhost/oversign/source/library/css/'.$style.".css");
+				$body = $retDoc->getElementsByTagName('body')->item(0);
+				$body->insertBefore($tempStyle,$body->firstChild);
 			}
 		}
 		else if($key == "external"){
 			$listExternal = $value;
 		}
 	}
-	echo $retDoc->saveHTML();
+	echo $retDoc->saveHTML();	
 ?>

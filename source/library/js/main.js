@@ -1,8 +1,7 @@
 function loadContent(url){
 	history.pushState({}, null, url);
-	$(".blog-nav-item.active").removeClass("active");
+	$(".nav-item.active").removeClass("active");
 	$("a[href='"+url+"']").addClass("active");
-	console.log(url);
 	$.ajax({
 		type:"POST",
 		url:BASE_URL+"service/",
@@ -12,6 +11,7 @@ function loadContent(url){
 		},
 		success:function(data){
 			$("#content").html(data);
+			console.log(data);
 		}
 	})
 }
@@ -42,7 +42,8 @@ function fullScreenPopup(content){
 		"width":screen.width,
 		"height":screen.height,
 		"background-color":"rgba(0,0,0,0.5)",
-		"padding":"5%"
+		"padding":"5%",
+		"z-index":"2000"
 	});
 	/*var centerDiv = $("<div>").css({
 		"width":screen.width/2,
@@ -56,7 +57,15 @@ function fullScreenPopup(content){
 		"background-color":"white"
 	}).html(content);
 	$(blocker).html(centerDiv);*/
-	$(blocker).html(content);
+	$(content).click(function(e){
+		e.stopPropagation();
+	})
+	$(".close",content).click(function(){
+		closeBlocker();
+	})
+	$(blocker).html(content).click(function(){
+		closeBlocker();
+	});
 	$("body").append(blocker);
 		console.log(content);
 }
@@ -89,7 +98,7 @@ $(document).ready(function(){
 	var onloadTarget = window.location.href.replace(BASE_URL,"");
 	onloadTarget = onloadTarget==""?"home":onloadTarget;
 	$("*").click(function(e){
-		if($(this).hasClass("blog-nav-item")){
+		if($(this).hasClass("nav-item")){
 			e.preventDefault();
 			loadContent($(this).attr("href"));
 		}
@@ -99,9 +108,10 @@ $(document).ready(function(){
 		mode = defaultValue(mode,"fullscreen");
 		animation = defaultValue(animation,defaultPopupAnimation());
 		time = defaultValue(time,500);
+		var content = this.clone();
 		switch(mode){
 			case "fullscreen":
-				fullScreenPopup(this);
+				fullScreenPopup(content);
 				break;
 			case "left":
 				break;
