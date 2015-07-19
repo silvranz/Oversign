@@ -32,7 +32,7 @@
 			<img src="source/images/LoadingCircle.gif" />
 		</div>
 		<!-- Start Of Modal -->
-		<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      	<div class="modal-header" style="background-color:#0066CC;">

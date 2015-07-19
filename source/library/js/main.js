@@ -41,9 +41,10 @@ function fullScreenPopup(content){
 		"left":0,
 		"width":screen.width,
 		"height":screen.height,
-		"background-color":"rgba(0,0,0,0.5)"
+		"background-color":"rgba(0,0,0,0.5)",
+		"padding":"5%"
 	});
-	var centerDiv = $("<div>").css({
+	/*var centerDiv = $("<div>").css({
 		"width":screen.width/2,
 		"height":screen.height/2,
 		"position":"fixed",
@@ -54,8 +55,10 @@ function fullScreenPopup(content){
 		"border":"1px solid black",
 		"background-color":"white"
 	}).html(content);
-	$(blocker).html(centerDiv);
+	$(blocker).html(centerDiv);*/
+	$(blocker).html(content);
 	$("body").append(blocker);
+		console.log(content);
 }
 $(document).ready(function(){
 	$("#btnRegisterNewMember").click(function(){
@@ -111,4 +114,7 @@ $(document).ready(function(){
 		}
 		return this;
 	}
+	$(".login-item").click(function(){
+		$("#loginModal").customPopup();
+	})
 });

@@ -34,7 +34,7 @@
 		}
 		else if($key == "css"){
 			foreach($value as $style){
-				$retDoc->createElement('link','')->setAttribute ('src', 'http://localhost/oversign/source/library/css/'.$style.".js");
+				$retDoc->createElement('link','')->setAttribute ('src', 'http://localhost/oversign/source/library/css/'.$style.".css");
 			}
 		}
 		else if($key == "external"){
