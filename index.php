@@ -75,7 +75,7 @@
 						  </div>
 						</form>
 					  <div class="modal-footer registerForm" style="display:none;">
-						<button type="button" class="btn btn-primary">Register</button>
+						<button id="submitRegister" type="button" class="btn btn-primary">Register</button>
 						<p> Already have an account? Please <span> <a href="#" id="btnBackToLoginReg">Login</a> </span></p>
 					  </div>
 					  <!-- End Of Form Login -->

@@ -130,5 +130,19 @@ $(document).ready(function(){
 				$("#modalLabelContent",parent).text("Input email and password to start managing your website.");
 			});
 		})
+		$("#submitRegister").click(function(){
+			$.ajax({
+				url:"http://localhost:8080/oversign/service/user/login",
+				data:{
+					email : $("#txtRegisterEmail").val(),
+					password:$("#txtRegisterPassword").val(),
+					confirmPass:$("#txtRegisterConfirmPassword").val()
+				},
+				type:"POST",
+				success:function(data){
+					
+				}
+			})
+		})
 	})
 });
