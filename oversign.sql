@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2015 at 03:53 PM
+-- Generation Time: Jul 23, 2015 at 04:16 PM
 -- Server version: 5.5.25a
 -- PHP Version: 5.4.4
 
@@ -28,18 +28,70 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllUser`()
     NO SQL
 SELECT * FROM UserBasic$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetHotThread`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetForumComment`(IN `ForumIDParam` INT)
     NO SQL
-SELECT f.ForumID, f.ForumTitle,
+SELECT DISTINCT c.CommentID, c.Comment, c.CommentDate,
+ub.UserFullName, ub.UserPhoto, CommentDate
+FROM
+Comment c 
+JOIN Forum f on c.ForumID = f.ForumID and f.ForumStatus='A'
+JOIN userbasic ub on ub.UserID=c.CommentAuthor AND ub.UserStatus='A'
+WHERE c.CommentStatus='A' AND c.ForumID=ForumIDParam$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetForumContent`(IN `ForumIDParam` INT)
+    NO SQL
+SELECT DISTINCT f.ForumID, f.ForumTitle,
 Count(c.CommentID) 'NumberOfComment', 
-CASE WHEN fe.Count is null then 0 else fe.Count  END
-'NumberOfEye' FROM
+CASE WHEN fe.Count is null then 0 else fe.Count END
+'NumberOfEye',
+ub.UserFullName, ub.UserPhoto, ForumCreatedDate,
+ForumContent
+FROM
 Forum f
 LEFT JOIN Comment c on c.ForumID = f.ForumID 
 	and c.CommentStatus='A'
 LEFT JOIN ForumEye fe on fe.ForumID = f.ForumID
+JOIN userbasic ub on ub.UserID=f.ForumAuthor AND ub.UserStatus='A'
+WHERE f.ForumStatus='A' AND f.ForumID=ForumIDParam
+GROUP BY f.ForumID, ForumTitle, 
+ub.UserFullName, ub.UserPhoto, ForumCreatedDate,
+ForumContent$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetForumSearchResult`(IN `search` VARCHAR(200))
+    NO SQL
+SELECT f.ForumID, f.ForumTitle,
+Count(c.CommentID) 'NumberOfComment', 
+CASE WHEN fe.Count is null then 0 else fe.Count END
+'NumberOfEye',
+ub.UserFullName, ForumCreatedDate 
+FROM
+Forum f
+LEFT JOIN Comment c on c.ForumID = f.ForumID 
+	and c.CommentStatus='A'
+LEFT JOIN ForumEye fe on fe.ForumID = f.ForumID
+JOIN userbasic ub on ub.UserID=f.ForumAuthor
 WHERE f.ForumStatus='A'
-GROUP BY f.ForumID, ForumTitle
+GROUP BY f.ForumID, ForumTitle, 
+ub.UserFullName, ForumCreatedDate
+ORDER BY NumberOfComment asc, NumberOfEye asc
+limit 10$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetHotThread`()
+    NO SQL
+SELECT f.ForumID, f.ForumTitle,
+Count(c.CommentID) 'NumberOfComment', 
+CASE WHEN fe.Count is null then 0 else fe.Count END
+'NumberOfEye',
+ub.UserFullName, ForumCreatedDate 
+FROM
+Forum f
+LEFT JOIN Comment c on c.ForumID = f.ForumID 
+	and c.CommentStatus='A'
+LEFT JOIN ForumEye fe on fe.ForumID = f.ForumID
+JOIN userbasic ub on ub.UserID=f.ForumAuthor
+WHERE f.ForumStatus='A'
+GROUP BY f.ForumID, ForumTitle, 
+ub.UserFullName, ForumCreatedDate
 ORDER BY NumberOfComment asc, NumberOfEye asc
 limit 10$$
 
@@ -288,6 +340,7 @@ CREATE TABLE IF NOT EXISTS `userbasic` (
   `UserEmail` varchar(50) NOT NULL,
   `UserFullName` varchar(100) DEFAULT NULL,
   `UserPassword` varchar(200) NOT NULL,
+  `UserPhoto` varchar(100) DEFAULT NULL,
   `UserPhone` varchar(100) DEFAULT NULL,
   `UserAddress` varchar(200) DEFAULT NULL,
   `UserCity` varchar(50) DEFAULT NULL,
@@ -305,8 +358,8 @@ CREATE TABLE IF NOT EXISTS `userbasic` (
 -- Dumping data for table `userbasic`
 --
 
-INSERT INTO `userbasic` (`UserID`, `UserEmail`, `UserFullName`, `UserPassword`, `UserPhone`, `UserAddress`, `UserCity`, `UserProvince`, `UserCountry`, `UserPostalCode`, `PersonalUser`, `isAdministrator`, `UserStatus`) VALUES
-(1, 'amuliawan93@gmail.com', 'Theresia Angela Muliawan', 'angel123', '081281849766', 'Kalipasir pengarengan 14', 'Jakarta Pusat', 'DKI Jakarta', 'Indonesia', '10340', 1, 1, 'A');
+INSERT INTO `userbasic` (`UserID`, `UserEmail`, `UserFullName`, `UserPassword`, `UserPhoto`, `UserPhone`, `UserAddress`, `UserCity`, `UserProvince`, `UserCountry`, `UserPostalCode`, `PersonalUser`, `isAdministrator`, `UserStatus`) VALUES
+(1, 'amuliawan93@gmail.com', 'Theresia Angela Muliawan', 'angel123', NULL, '081281849766', 'Kalipasir pengarengan 14', 'Jakarta Pusat', 'DKI Jakarta', 'Indonesia', '10340', 1, 1, 'A');
 
 --
 -- Constraints for dumped tables
