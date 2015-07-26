@@ -1,0 +1,10 @@
+$(document).ready(function(){
+	$.ajax({
+		url:"http://localhost:8080/oversign/service/engine/get",
+		type:"GET",
+		crossDomain:true,
+		success:function(data){
+			console.log(data);
+		}
+	})
+});

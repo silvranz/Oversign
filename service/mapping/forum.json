@@ -4,6 +4,6 @@
 		"target":""
 	}],
 	"css":["vertical-menu"],
-	"js": [],
+	"js": ["vertical-menu", "forum"],
 	"external":[]
 }
