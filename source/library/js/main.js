@@ -128,6 +128,24 @@ $(document).ready(function(){
 				$("#modalLabelContent",parent).text("Input email and password to start managing your website.");
 			});
 		})
+		$("#loginButton",loginModal).click(function(){
+			var passingData = {
+				"email":$("#txtLoginEmail",loginModal).val(),
+				"password":$("#txtLoginPassword",loginModal).val(),
+			};
+			$.ajax({
+				url:"http://localhost:8080/oversign/service/user/login",
+				data:JSON.stringify(passingData),
+				accept: 'application/json',
+				contentType:"application/json",
+				type:"POST",
+				crossDomain:true,
+				success:function(data){
+					//harusnya proses response tapi belum bisa balikin response
+					console.log(data);
+				}
+			})
+		})
 		$("#submitRegister",loginModal).click(function(){
 			//attribut json-nya samain dengan objek parameter
 			//contoh di register gw pake RegisterParam buat parameter di handlernya
