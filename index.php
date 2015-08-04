@@ -55,7 +55,7 @@
 						  <p> Forgot Password? <span> <a style="cursor:pointer;" id="btnForgotPassword">Click Here</a> </span></p>
 						</form>
 						<div class="modal-footer loginForm">
-							<button type="button" class="btn btn-primary">Login</button>
+							<button id="loginButton" type="button" class="btn btn-primary">Login</button>
 							<p> New Member? Please <span> <a href="#" id="btnRegisterNewMember">Register</a> </span></p>
 						</div>
 						<!-- End Of Form Login -->

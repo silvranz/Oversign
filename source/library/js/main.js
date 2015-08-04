@@ -11,7 +11,6 @@ function loadContent(url){
 		},
 		success:function(data){
 			$("#content").html(data);
-			console.log(data);
 		}
 	})
 }
@@ -67,7 +66,6 @@ function fullScreenPopup(content){
 		closeBlocker();
 	});
 	$("body").append(blocker);
-		console.log(content);
 }
 $(document).ready(function(){
 	var onloadTarget = window.location.href.replace(BASE_URL,"");
@@ -130,17 +128,47 @@ $(document).ready(function(){
 				$("#modalLabelContent",parent).text("Input email and password to start managing your website.");
 			});
 		})
-		$("#submitRegister").click(function(){
+		$("#loginButton",loginModal).click(function(){
+			var passingData = {
+				"email":$("#txtLoginEmail",loginModal).val(),
+				"password":$("#txtLoginPassword",loginModal).val(),
+			};
 			$.ajax({
 				url:"http://localhost:8080/oversign/service/user/login",
-				data:{
-					email : $("#txtRegisterEmail").val(),
-					password:$("#txtRegisterPassword").val(),
-					confirmPass:$("#txtRegisterConfirmPassword").val()
-				},
+				data:JSON.stringify(passingData),
+				accept: 'application/json',
+				contentType:"application/json",
 				type:"POST",
+				crossDomain:true,
 				success:function(data){
-					
+					//harusnya proses response tapi belum bisa balikin response
+					console.log(data);
+				}
+			})
+		})
+		$("#submitRegister",loginModal).click(function(){
+			//attribut json-nya samain dengan objek parameter
+			//contoh di register gw pake RegisterParam buat parameter di handlernya
+			//RegisterParam punya email,password,confirmPass
+			//double quotes("") buat nama parameter(email,password,confirmPass) usahain pake
+			//case kemaren ga pake "" ga mau dibaca, yang ini belom coba sih
+			var passingData = {
+					"email":$("#txtRegisterEmail",loginModal).val(),
+					"password":$("#txtRegisterPassword",loginModal).val(),
+					"confirmPass":$("#txtRegisterConfirmPassword",loginModal).val()
+				};
+			//urlnya sesuaiin ama host+pathnya
+			//host gw localhost:8080 + path buat register user/register
+			$.ajax({
+				url:"http://localhost:8080/oversign/service/user/register",
+				data:JSON.stringify(passingData),
+				accept: 'application/json',
+				contentType:"application/json",
+				type:"POST",
+				crossDomain:true,
+				success:function(data){
+					//harusnya proses response tapi belum bisa balikin response
+					console.log(data);
 				}
 			})
 		})
