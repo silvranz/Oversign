@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 23, 2015 at 04:16 PM
+-- Generation Time: Aug 04, 2015 at 04:50 PM
 -- Server version: 5.5.25a
 -- PHP Version: 5.4.4
 
@@ -82,7 +82,9 @@ SELECT f.ForumID, f.ForumTitle,
 Count(c.CommentID) 'NumberOfComment', 
 CASE WHEN fe.Count is null then 0 else fe.Count END
 'NumberOfEye',
-ub.UserFullName, ForumCreatedDate 
+ub.UserFullName, 
+DATE_FORMAT(ForumCreatedDate ,'%d %b %Y %h:%i %p') 
+'ForumCreatedDate'
 FROM
 Forum f
 LEFT JOIN Comment c on c.ForumID = f.ForumID 
@@ -107,6 +109,25 @@ WHERE h.Status='A'
 GROUP BY h.HashtagID, Hashtag
 ORDER BY COUNT(CommentID) asc, fe.Count asc
 LIMIT 10$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTemplate`()
+    NO SQL
+SELECT t.TemplateID, TemplateTitle, TemplateDescription,
+PreviewImage, t.TemplateCategoryID,
+(SUM(Rating)/COUNT(TemplateRatingID)) 'Rating',
+SUM(Rating),
+COUNT(TemplateRatingID)
+, TemplateCreatedDate FROM Template t
+JOIN TemplateCategory tc on t.TemplateCategoryID=tc.TemplateCategoryID
+JOIN TemplateRating tr on t.TemplateID=tr.TemplateID
+GROUP BY TemplateID, TemplateTitle, TemplateDescription,
+PreviewImage,TemplateCreatedDate$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTemplateCategory`()
+    NO SQL
+SELECT TemplateCategoryID, TemplateCategoryName
+FROM TemplateCategory
+ORDER BY TemplateCategoryName asc$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `GetUserLogin`(IN `inUserEmail` VARCHAR(50), IN `inUserPassword` VARCHAR(200))
     NO SQL
@@ -299,7 +320,14 @@ CREATE TABLE IF NOT EXISTS `template` (
   `TemplateCreatedDate` datetime NOT NULL,
   PRIMARY KEY (`TemplateID`),
   KEY `TemplateCategoryID` (`TemplateCategoryID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `template`
+--
+
+INSERT INTO `template` (`TemplateID`, `TemplateTitle`, `TemplateDescription`, `PreviewImage`, `TemplateCategoryID`, `TemplateSavePath`, `TemplateCreatedDate`) VALUES
+(1, 'Classic Wedding Invitation', 'lorem ipsum', 'wedding-image-1.jpg', 1, 'wedding-image-1.jpg', '2015-08-04 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -311,7 +339,16 @@ CREATE TABLE IF NOT EXISTS `templatecategory` (
   `TemplateCategoryID` int(11) NOT NULL AUTO_INCREMENT,
   `TemplateCategoryName` varchar(50) NOT NULL,
   PRIMARY KEY (`TemplateCategoryID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `templatecategory`
+--
+
+INSERT INTO `templatecategory` (`TemplateCategoryID`, `TemplateCategoryName`) VALUES
+(1, 'Wedding Invitation'),
+(2, 'Clothes Store'),
+(3, 'Clothes Store');
 
 -- --------------------------------------------------------
 
@@ -327,7 +364,16 @@ CREATE TABLE IF NOT EXISTS `templaterating` (
   PRIMARY KEY (`TemplateRatingID`),
   KEY `RatingBy` (`RatingBy`,`TemplateID`),
   KEY `TemplateID` (`TemplateID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `templaterating`
+--
+
+INSERT INTO `templaterating` (`TemplateRatingID`, `RatingBy`, `TemplateID`, `Rating`) VALUES
+(1, 1, 1, 4),
+(2, 2, 1, 3),
+(3, 3, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -352,14 +398,16 @@ CREATE TABLE IF NOT EXISTS `userbasic` (
   `UserStatus` char(1) NOT NULL,
   PRIMARY KEY (`UserID`),
   UNIQUE KEY `UserEmail` (`UserEmail`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `userbasic`
 --
 
 INSERT INTO `userbasic` (`UserID`, `UserEmail`, `UserFullName`, `UserPassword`, `UserPhoto`, `UserPhone`, `UserAddress`, `UserCity`, `UserProvince`, `UserCountry`, `UserPostalCode`, `PersonalUser`, `isAdministrator`, `UserStatus`) VALUES
-(1, 'amuliawan93@gmail.com', 'Theresia Angela Muliawan', 'angel123', NULL, '081281849766', 'Kalipasir pengarengan 14', 'Jakarta Pusat', 'DKI Jakarta', 'Indonesia', '10340', 1, 1, 'A');
+(1, 'amuliawan93@gmail.com', 'Theresia Angela Muliawan', 'angel123', NULL, '081281849766', 'Kalipasir pengarengan 14', 'Jakarta Pusat', 'DKI Jakarta', 'Indonesia', '10340', 1, 1, 'A'),
+(2, 'alexandrobrian15@gmail.com', 'Brian Alexandro Messakh', 'angelcantik', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 'A'),
+(3, 'silvranz@gmail.com', 'Nicholas Gani', 'silver', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 'A');
 
 --
 -- Constraints for dumped tables
