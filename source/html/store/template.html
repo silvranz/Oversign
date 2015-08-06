@@ -1,0 +1,42 @@
+<div class="page-header">
+	<h1 style="color:#0066cc">Store Template</h1>
+</div>
+<div class="col-xs-12 row">
+	<div class="col-xs-2 row">		
+		<input type="text" placeholder="search by title, description" style="width:200px"/>
+		<h3>Sort by</h3>
+		<input type="checkbox" id="sortDate"><label for="sortDate">Date</label>
+		<input type="checkbox" id="sortRate"><label for="sortRate">Rate</label>
+		<div id='cssmenu' class="row">
+			<ul id="categoryFilter">
+				<li>
+					<a href='#'>Most Popular</a>
+				</li>
+				<li>
+					<a href='#'>New Arrival</a>
+				</li>
+				<li>
+					<a href='#'>All Category</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-xs-10 row pull-right">
+		<div id="displayTemplate">
+			<div id="templateItem" class="col-xs-4" style="display:none">
+				<div>
+					<span class="templateName"></span><a href="#">?</a>
+				</div>
+				<div><img class="previewImage" /></div>
+				<div>
+					<button class="button">Preview</button>
+					<button class="button">Edit</button>
+				</div>
+				<div>
+					<span class="rating"></span>
+					<span><span class="numUser"></span> user(s)</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
