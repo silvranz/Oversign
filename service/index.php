@@ -1,9 +1,9 @@
 <?php
-	//defined('BASEPATH') OR exit('No direct script access allowed');
+	define("BASEPATH","http://localhost/oversign/");
 	$requestUrl = $_POST["url"];
 	$mappingJSON = @file_get_contents('mapping/'.$requestUrl.'.json');
 	if($mappingJSON==FALSE){
-		echo "<img src='source/images/404.jpg'>";
+		echo "<img src='".BASEPATH."source/images/404.jpg'>";
 	}
 	else{
 		$mappingJSON = json_decode($mappingJSON);

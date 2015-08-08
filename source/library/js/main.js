@@ -1,5 +1,5 @@
 function loadContent(url){
-	history.pushState({}, null, url);
+	history.replaceState({}, null, BASE_URL+url);
 	$(".nav-item.active").removeClass("active");
 	$("a[href='"+url+"']").addClass("active");
 	$.ajax({
