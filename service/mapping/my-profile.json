@@ -3,7 +3,7 @@
 		"source":"my-profile.html",
 		"target":""
 	}],
-	"js": [],
+	"js": ["my-profile"],
 	"css":[],
 	"external":[]
 }

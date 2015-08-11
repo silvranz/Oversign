@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 04, 2015 at 04:50 PM
+-- Generation Time: Aug 11, 2015 at 05:01 PM
 -- Server version: 5.5.25a
 -- PHP Version: 5.4.4
 
@@ -28,7 +28,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllUser`()
     NO SQL
 SELECT * FROM UserBasic$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetForumComment`(IN `ForumIDParam` INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetForumComment`(IN `inForumID` INT)
     NO SQL
 SELECT DISTINCT c.CommentID, c.Comment, c.CommentDate,
 ub.UserFullName, ub.UserPhoto, CommentDate
@@ -36,9 +36,9 @@ FROM
 Comment c 
 JOIN Forum f on c.ForumID = f.ForumID and f.ForumStatus='A'
 JOIN userbasic ub on ub.UserID=c.CommentAuthor AND ub.UserStatus='A'
-WHERE c.CommentStatus='A' AND c.ForumID=ForumIDParam$$
+WHERE c.CommentStatus='A' AND c.ForumID=inForumID$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetForumContent`(IN `ForumIDParam` INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetForumContent`(IN `inForumID` INT)
     NO SQL
 SELECT DISTINCT f.ForumID, f.ForumTitle,
 Count(c.CommentID) 'NumberOfComment', 
@@ -52,7 +52,7 @@ LEFT JOIN Comment c on c.ForumID = f.ForumID
 	and c.CommentStatus='A'
 LEFT JOIN ForumEye fe on fe.ForumID = f.ForumID
 JOIN userbasic ub on ub.UserID=f.ForumAuthor AND ub.UserStatus='A'
-WHERE f.ForumStatus='A' AND f.ForumID=ForumIDParam
+WHERE f.ForumStatus='A' AND f.ForumID=inForumID
 GROUP BY f.ForumID, ForumTitle, 
 ub.UserFullName, ub.UserPhoto, ForumCreatedDate,
 ForumContent$$
@@ -70,7 +70,7 @@ LEFT JOIN Comment c on c.ForumID = f.ForumID
 	and c.CommentStatus='A'
 LEFT JOIN ForumEye fe on fe.ForumID = f.ForumID
 JOIN userbasic ub on ub.UserID=f.ForumAuthor
-WHERE f.ForumStatus='A'
+WHERE f.ForumStatus='A' AND (f.ForumTitle like CONCAT('%',search,'%') OR f.ForumContent like CONCAT('%',search,'%'))
 GROUP BY f.ForumID, ForumTitle, 
 ub.UserFullName, ForumCreatedDate
 ORDER BY NumberOfComment asc, NumberOfEye asc
@@ -141,6 +141,19 @@ UserPassword=inUserPassword
 AND UserStatus='A';
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetUserProfile`(IN `inUserID` INT)
+    NO SQL
+SELECT ub.UserID, UserEmail, UserFullName, UserPhoto,
+UserAddress, UserCity, UserProvince, UserCountry,
+UserPostalCode,
+PersonalUser, 
+CompanyName, CompanyAddress,CompanyCity,
+CompanyProvince, CompanyCountry,
+CompanyPostalCode
+From UserBasic ub
+LEFT JOIN company c on c.CompanyAuthor=ub.UserID
+WHERE ub.UserID=inUserID AND UserStatus='A'$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertContactUs`(IN `inName` VARCHAR(100), IN `inEmail` VARCHAR(50), IN `inContent` VARCHAR(500), IN `inAuthor` INT)
     NO SQL
 BEGIN
@@ -195,6 +208,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 
 CREATE TABLE IF NOT EXISTS `company` (
   `CompanyID` int(11) NOT NULL AUTO_INCREMENT,
+  `CompanyName` varchar(100) NOT NULL,
   `CompanyAddress` varchar(200) DEFAULT NULL,
   `CompanyCity` varchar(50) DEFAULT NULL,
   `CompanyProvince` varchar(50) DEFAULT NULL,
