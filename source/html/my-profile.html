@@ -9,10 +9,11 @@
 				     		<img src="source/images/profile/Profile-1.jpg"/>
 				        </div>
 				        <div class="col-lg-8 col-md-offset-1">
-				        	<h3>Theresia Angela Muliawan</h3>
-				          	<p> Email:	amuliawan93@gmail.com </p>
-							<p> Phone:	+62-812-8184-9766 </p>
-							<p> Address: Kalipasir pengarengan 14, Center Jakarta, Jakarta Province, 10340.</p>
+				        	<h3 id="spanName"></h3>
+				          	<p id="spanEmail"></p>
+							<p id="spanPhone"></p>
+							<p id="spanAddress"></p>
+							<a style="cursor:pointer" id="btnEditUserBasic">Edit</a>
 				        </div>
 			        </div>
 		        </div>
@@ -26,10 +27,10 @@
 				<form class="form-horizontal col-sm-9">
 					<div class="form-group">
 						<label class="radio-inline control-label col-sm-3">
-						  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Personal Use
+						  <input type="radio" name="inlineRadioOptions" id="radioUse1" value="1"> Personal Use
 						</label>
 						<label class="radio-inline col-sm-3">
-						  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Company Use
+						  <input type="radio" name="inlineRadioOptions" id="radioUse0" value="0"> Company Use
 						</label>
 					</div>
 				  	<div class="form-group">
@@ -59,13 +60,14 @@
 				  	<div class="form-group">
 					    <label class="control-label col-sm-3" for="ddlCountry">Country</label>
 					    <div class="col-sm-6">
-					    	<select class="form-control" id="ddlCountry">
+					    	<input type="text" class="form-control" id="ddlCountry" placeholder="Enter Country">
+					    	<!--<select class="form-control" id="ddlCountry">
 							  <option>Indonesia</option>
 							  <option>Singapore</option>
 							  <option>Malaysia</option>
 							  <option>China</option>
 							  <option>England</option>
-							</select>
+							</select>-->
 					    </div>
 				  	</div>
 				  	<div class="form-group">
@@ -75,6 +77,11 @@
 					    </div>
 				  	</div>
 				</form>
+				<div class="form-group">
+				    <div class="col-sm-2 col-md-offset-7">
+				    	<input type="button" class="btn btn-primary" id="btnSaveCompany" value="Save"/>
+				    </div>
+			  	</div>
 				<!-- End Of Form Company Information -->
 				<!-- Start Of Form Change Password -->
 				<div class="page-header col-sm-8" style="background-size:100% auto;background-size: cover;background:url('source/images/icon-website/blue-background.png') no-repeat;">
@@ -103,7 +110,7 @@
 				<!-- End Of Form Change Password -->
 				<div class="form-group">
 				    <div class="col-sm-2 col-md-offset-7">
-				    	<input type="button" class="btn btn-primary" id="btnSaveProfile" value="Save All"/>
+				    	<input type="button" class="btn btn-primary" id="btnSavePassword" value="Save"/>
 				    </div>
 			  	</div>
 			<!--</form>-->
