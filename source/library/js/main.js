@@ -44,18 +44,6 @@ function fullScreenPopup(content){
 		"padding":"5%",
 		"z-index":"2000"
 	});
-	/*var centerDiv = $("<div>").css({
-		"width":screen.width/2,
-		"height":screen.height/2,
-		"position":"fixed",
-		"top":"50%",
-		"left":"50%",
-		"margin-top":"-15%",
-		"margin-left":"-25%",
-		"border":"1px solid black",
-		"background-color":"white"
-	}).html(content);
-	$(blocker).html(centerDiv);*/
 	$(content).click(function(e){
 		e.stopPropagation();
 	})
@@ -67,6 +55,7 @@ function fullScreenPopup(content){
 	});
 	$("body").append(blocker);
 }
+
 $(document).ready(function(){
 	var onloadTarget = window.location.href.replace(BASE_URL,"");
 	onloadTarget = onloadTarget==""?"home":onloadTarget;
@@ -77,26 +66,6 @@ $(document).ready(function(){
 		}
 	});
 	loadContent(onloadTarget);
-	$.fn.customPopup = function(mode,animation,time){
-		mode = defaultValue(mode,"fullscreen");
-		animation = defaultValue(animation,defaultPopupAnimation());
-		time = defaultValue(time,500);
-		var content = this.clone();
-		switch(mode){
-			case "fullscreen":
-				fullScreenPopup(content);
-				break;
-			case "left":
-				break;
-			case "right":
-				break;
-			case "top":
-				break;
-			case "bottom":
-				break;
-		}
-		return content;
-	}
 	$(".login-item").click(function(){
 		var loginModal = $("#loginModal");
 		loginModal = $(loginModal).customPopup();
@@ -141,24 +110,16 @@ $(document).ready(function(){
 				type:"POST",
 				crossDomain:true,
 				success:function(data){
-					//harusnya proses response tapi belum bisa balikin response
 					console.log(data);
 				}
 			})
 		})
 		$("#submitRegister",loginModal).click(function(){
-			//attribut json-nya samain dengan objek parameter
-			//contoh di register gw pake RegisterParam buat parameter di handlernya
-			//RegisterParam punya email,password,confirmPass
-			//double quotes("") buat nama parameter(email,password,confirmPass) usahain pake
-			//case kemaren ga pake "" ga mau dibaca, yang ini belom coba sih
 			var passingData = {
 					"email":$("#txtRegisterEmail",loginModal).val(),
 					"password":$("#txtRegisterPassword",loginModal).val(),
 					"confirmPass":$("#txtRegisterConfirmPassword",loginModal).val()
 				};
-			//urlnya sesuaiin ama host+pathnya
-			//host gw localhost:8080 + path buat register user/register
 			$.ajax({
 				url:"http://localhost:8080/oversign/service/user/register",
 				data:JSON.stringify(passingData),
@@ -167,10 +128,52 @@ $(document).ready(function(){
 				type:"POST",
 				crossDomain:true,
 				success:function(data){
-					//harusnya proses response tapi belum bisa balikin response
 					console.log(data);
 				}
 			})
 		})
 	})
+	
+	$.fn.customPopup = function(mode,animation,time){
+		mode = defaultValue(mode,"fullscreen");
+		animation = defaultValue(animation,defaultPopupAnimation());
+		time = defaultValue(time,500);
+		var content = this.clone();
+		switch(mode){
+			case "fullscreen":
+				fullScreenPopup(content);
+				break;
+			case "left":
+				break;
+			case "right":
+				break;
+			case "top":
+				break;
+			case "bottom":
+				break;
+		}
+		return content;
+	}
+	$.fn.pagination = function(param){
+		var data = param.data;
+		var parent = this;
+		var item = $(".templateItem",this);
+		var colnum = Math.floor($(parent).width()/$(item).width());
+		var pagenum = Math.ceil(data.length/(colnum*4));
+		$(data).each(function(i){
+			var newItem = $(item).clone().removeClass("templateItem").show().css({
+				"background-image":"url('"+BASE_URL+"source/images/frame.png')",
+				"background-size":"100% 100%",
+				"margin":"auto"});
+			for(var key in this){
+				$("."+key,newItem).text(this[key]);
+			}
+			$(parent).append(newItem);
+		})
+		var paginationNumber = $("<div style='text-align:right'></div>");
+		for(var i=1;i<=pagenum;i++){
+			$(paginationNumber).append($("<a href='#'>"+i+"</a>"));
+		}
+		$(parent).next().after(paginationNumber);
+	}
 });

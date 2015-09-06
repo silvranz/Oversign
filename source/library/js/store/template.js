@@ -2,7 +2,7 @@ var listTemplate = [];
 function loadTemplate(){
 	var parentElement = $("#displayTemplate");
 	$(listTemplate).each(function(i){
-		var newItem = $("#templateItem",parentElement).clone().removeAttr("id").show();
+		var newItem = $(".templateItem",parentElement).clone().removeClass("templateItem").show();
 		$(".templateName",newItem).text(this.templateName);
 		$(".previewImage",newItem).attr("alt",this.previewImage);
 		$(".rating",newItem).text(this.rating+" star ");
@@ -15,13 +15,12 @@ $(document).ready(function(){
 		url:"http://localhost:8080/oversign/service/store/getAllTemplateCategory",
 		type:"GET",
 		crossDomain:true,
-		success:function(data){
+		success:function(data){			
 			$(data).each(function(i){
 				var categoryItem = $("<a href='#'>");
 				$(categoryItem).text(this.categoryName).click(function(e){
 					e.preventDefault();
 				});
-				console.log(categoryItem);
 				$("#categoryFilter").append($("<li>").append(categoryItem));
 			})		
 		}
@@ -32,7 +31,10 @@ $(document).ready(function(){
 		crossDomain:true,
 		success:function(data){
 			listTemplate = data;
-			loadTemplate();
+			$("#displayTemplate").pagination({
+				data:data
+			});
+			//loadTemplate();
 		}
 	})
 });
