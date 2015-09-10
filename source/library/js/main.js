@@ -162,7 +162,7 @@ $(document).ready(function(){
 		var pagenum = Math.ceil(data.length/(colnum*4));
 		$(data).each(function(i){
 			var newItem = $(item).clone().removeClass("templateItem").show().css({
-				"background-image":"url('"+BASE_URL+"source/images/frame.png')",
+				"background-image":"url('"+BASE_URL+"source/images/glass.png')",
 				"background-size":"100% 100%",
 				"margin":"auto"});
 			for(var key in this){
@@ -170,10 +170,86 @@ $(document).ready(function(){
 			}
 			$(parent).append(newItem);
 		})
-		var paginationNumber = $("<div style='text-align:right'></div>");
-		for(var i=1;i<=pagenum;i++){
-			$(paginationNumber).append($("<a href='#'>"+i+"</a>"));
+		var paginationNumber = $("<div style='height:50px'></div>");
+		var buttonNext = $("<div></div>").css({
+			"display":"inline-block",
+			"height":"50%",
+			"width":"5%",
+			"background-image":"url('"+BASE_URL+"source/images/arrowNext.png')",
+			"background-size":"100% 100%",
+			"cursor":"pointer"
+		}).hover(function(){
+			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowNextHover.png')");
+		},function(){
+			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowNext.png')");
+		});
+		var buttonPrev = $("<div></div>").css({
+			"display":"inline-block",
+			"height":"50%",
+			"width":"5%",
+			"background-image":"url('"+BASE_URL+"source/images/arrowPrev.png')",
+			"background-size":"100% 100%",
+			"cursor":"pointer"
+		}).hover(function(){
+			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowPrevHover.png')");
+		},function(){
+			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowPrev.png')");
+		});
+		var buttonLast = $("<div></div>").css({
+			"display":"inline-block",
+			"height":"50%",
+			"width":"5%",
+			"background-image":"url('"+BASE_URL+"source/images/arrowLast.png')",
+			"background-size":"100% 100%",
+			"cursor":"pointer"
+		}).hover(function(){
+			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowLastHover.png')");
+		},function(){
+			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowLast.png')");
+		});
+		var buttonFirst = $("<div></div>").css({
+			"display":"inline-block",
+			"height":"50%",
+			"width":"5%",
+			"background-image":"url('"+BASE_URL+"source/images/arrowFirst.png')",
+			"background-size":"100% 100%",
+			"cursor":"pointer"
+		}).hover(function(){
+			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowFirstHover.png')");
+		},function(){
+			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowFirst.png')");
+		});
+		$(paginationNumber).append(buttonFirst);
+		$(paginationNumber).append(buttonPrev);
+		for(var i=1;i<=15;i++){
+			var link = $("<span style='float:left;margin:3px 15px;color:#008888'>"+i+"</span>");
+			var pageNum = $("<div></div>").css({
+				"display":"inline-block",
+				"height":"50%",
+				"width":"5%",
+				"background-image":"url('"+BASE_URL+"source/images/buttonBg.png')",
+				"background-size":"100% 100%",
+				"cursor":"pointer",
+				"text-align":"center"
+			}).append(link).hover(function(){
+				$(this).css("background-image","url('"+BASE_URL+"source/images/buttonBgHover.png')");
+				$("span",this).css("color","#000000");
+			},function(){
+				$(this).css("background-image","url('"+BASE_URL+"source/images/buttonBg.png')");
+				$("span",this).css("color","#008888");
+			});;
+			$(paginationNumber).append(pageNum);
 		}
+		var pageNum = $("<div></div>").css({
+			"display":"inline-block",
+			"height":"50%",
+			"width":"5%",
+			"background-image":"url('"+BASE_URL+"source/images/buttonBg.png')",
+			"background-size":"100% 100%"
+		}).append($("<img style='width:50%;height100%;float:left;margin:17px 12px' src='"+BASE_URL+"source/images/restPage.png'>"));
+		$(paginationNumber).append(pageNum);
+		$(paginationNumber).append(buttonNext);
+		$(paginationNumber).append(buttonLast);
 		$(parent).next().after(paginationNumber);
 	}
 });
