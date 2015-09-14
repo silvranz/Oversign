@@ -1,0 +1,13 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTemplate`(IN `limitpage` INT)
+    NO SQL
+SELECT t.TemplateID, TemplateTitle, TemplateDescription,
+PreviewImage, t.TemplateCategoryID,
+(SUM(Rating)/COUNT(TemplateRatingID)) 'Rating',
+SUM(Rating),
+COUNT(TemplateRatingID)
+, TemplateCreatedDate FROM Template t
+JOIN TemplateCategory tc on t.TemplateCategoryID=tc.TemplateCategoryID
+JOIN TemplateRating tr on t.TemplateID=tr.TemplateID
+GROUP BY TemplateID, TemplateTitle, TemplateDescription,
+PreviewImage,TemplateCreatedDate
+limit limitpage
