@@ -1,4 +1,4 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTemplate`(IN `limitpage` INT, IN `paramsorting` INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTemplate`(IN `limitpage` INT, IN `paramsorting` INT, IN `categoryid` INT)
     NO SQL
 SELECT t.TemplateID, TemplateTitle, TemplateDescription,
 PreviewImage, t.TemplateCategoryID,
@@ -8,6 +8,7 @@ COUNT(TemplateRatingID)
 , TemplateCreatedDate FROM Template t
 JOIN TemplateCategory tc on t.TemplateCategoryID=tc.TemplateCategoryID
 JOIN TemplateRating tr on t.TemplateID=tr.TemplateID
+WHERE t.TemplateCategoryID = categoryid
 GROUP BY TemplateID, TemplateTitle, TemplateDescription,
 PreviewImage,TemplateCreatedDate
 ORDER BY 
