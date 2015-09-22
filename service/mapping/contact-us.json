@@ -3,7 +3,7 @@
 		"source":"contact-us.html",
 		"target":""
 	}],
-	"js": [],
+	"js": ["contact-us"],
 	"css":[],
 	"external":[]
 }
