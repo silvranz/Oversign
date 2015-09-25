@@ -7,7 +7,7 @@ SUM(Rating),
 COUNT(TemplateRatingID)
 , TemplateCreatedDate FROM Template t
 JOIN TemplateCategory tc on t.TemplateCategoryID=tc.TemplateCategoryID
-JOIN TemplateRating tr on t.TemplateID=tr.TemplateID
+LEFT JOIN TemplateRating tr on t.TemplateID=tr.TemplateID
 WHERE (t.TemplateCategoryID = categoryid OR categoryid=0)
 GROUP BY TemplateID, TemplateTitle, TemplateDescription,
 PreviewImage,TemplateCreatedDate
