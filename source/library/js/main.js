@@ -155,101 +155,97 @@ $(document).ready(function(){
 		return content;
 	}
 	$.fn.pagination = function(param){
-		var data = param.data;
-		var parent = this;
-		var item = $(".templateItem",this);
-		var colnum = Math.floor($(parent).width()/$(item).width());
-		var pagenum = Math.ceil(data.length/(colnum*4));
-		$(data).each(function(i){
-			var newItem = $(item).clone().removeClass("templateItem").show().css({
-				"background-image":"url('"+BASE_URL+"source/images/glass.png')",
-				"background-size":"100% 100%",
-				"margin":"auto"});
-			for(var key in this){
-				$("."+key,newItem).text(this[key]);
-			}
-			$(parent).append(newItem);
-		})
-		var paginationNumber = $("<div style='height:50px'></div>");
-		var buttonNext = $("<div></div>").css({
-			"display":"inline-block",
-			"height":"50%",
-			"width":"5%",
-			"background-image":"url('"+BASE_URL+"source/images/arrowNext.png')",
-			"background-size":"100% 100%",
-			"cursor":"pointer"
-		}).hover(function(){
-			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowNextHover.png')");
-		},function(){
-			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowNext.png')");
-		});
-		var buttonPrev = $("<div></div>").css({
-			"display":"inline-block",
-			"height":"50%",
-			"width":"5%",
-			"background-image":"url('"+BASE_URL+"source/images/arrowPrev.png')",
-			"background-size":"100% 100%",
-			"cursor":"pointer"
-		}).hover(function(){
-			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowPrevHover.png')");
-		},function(){
-			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowPrev.png')");
-		});
-		var buttonLast = $("<div></div>").css({
-			"display":"inline-block",
-			"height":"50%",
-			"width":"5%",
-			"background-image":"url('"+BASE_URL+"source/images/arrowLast.png')",
-			"background-size":"100% 100%",
-			"cursor":"pointer"
-		}).hover(function(){
-			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowLastHover.png')");
-		},function(){
-			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowLast.png')");
-		});
-		var buttonFirst = $("<div></div>").css({
-			"display":"inline-block",
-			"height":"50%",
-			"width":"5%",
-			"background-image":"url('"+BASE_URL+"source/images/arrowFirst.png')",
-			"background-size":"100% 100%",
-			"cursor":"pointer"
-		}).hover(function(){
-			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowFirstHover.png')");
-		},function(){
-			$(this).css("background-image","url('"+BASE_URL+"source/images/arrowFirst.png')");
-		});
-		$(paginationNumber).append(buttonFirst);
-		$(paginationNumber).append(buttonPrev);
-		for(var i=1;i<=15;i++){
-			var link = $("<span style='float:left;margin:3px 15px;color:#008888'>"+i+"</span>");
-			var pageNum = $("<div></div>").css({
-				"display":"inline-block",
-				"height":"50%",
-				"width":"5%",
-				"background-image":"url('"+BASE_URL+"source/images/buttonBg.png')",
-				"background-size":"100% 100%",
-				"cursor":"pointer",
-				"text-align":"center"
-			}).append(link).hover(function(){
-				$(this).css("background-image","url('"+BASE_URL+"source/images/buttonBgHover.png')");
-				$("span",this).css("color","#000000");
-			},function(){
-				$(this).css("background-image","url('"+BASE_URL+"source/images/buttonBg.png')");
-				$("span",this).css("color","#008888");
-			});;
-			$(paginationNumber).append(pageNum);
+		if(typeof param.data != "undefined"){
+			param.data = $.extend({},$.fn.pagination.defaults.data,param.data);
 		}
-		var pageNum = $("<div></div>").css({
-			"display":"inline-block",
-			"height":"50%",
-			"width":"5%",
-			"background-image":"url('"+BASE_URL+"source/images/buttonBg.png')",
-			"background-size":"100% 100%"
-		}).append($("<img style='width:50%;height100%;float:left;margin:17px 12px' src='"+BASE_URL+"source/images/restPage.png'>"));
-		$(paginationNumber).append(pageNum);
-		$(paginationNumber).append(buttonNext);
-		$(paginationNumber).append(buttonLast);
-		$(parent).next().after(paginationNumber);
+		var pagination = $.extend({},$.fn.pagination.defaults,param);
+		pagination.parent = this;
+		pagination.item = $(this).find("div.templateItem");
+		$.extend(this[0],$.fn.pagination.methods);
+		this[0].settingPage = pagination;
+		this[0].loadData();
+	};
+	$.fn.pagination.defaults = {
+		maxRow:3,
+		maxCol:3,
+		data:{
+			"limit":30,
+			"sort":0,
+			"offset":0
+		},
+		accept: 'application/json',
+		contentType:"application/json",
+		type:"POST",
+		crossDomain:true,
+		success:function(data){
+			$(this.parent).empty();
+			var pagination = this;
+			if(typeof pagination.sortText != "undefined" && typeof pagination.sortText[0] != "undefined")
+			{
+				var listSorting = document.createElement("div");
+				listSorting.style.width = "100%";
+				var listSortText = pagination.sortText;
+				var sortLength = listSortText.length;
+				for(var i=0;i<sortLength;i++)
+				{
+					var sortLink = document.createElement("a");
+					sortLink.href = "#";
+					sortLink.sortIndex = i;
+					sortLink.innerHTML = listSortText[i];
+					sortLink.parentContainer = pagination.parent[0];
+					sortLink.onclick = function(event){
+						event.preventDefault();
+						this.parentContainer.settingPage.data.sort = this.sortIndex;
+						this.parentContainer.loadData();
+					};
+					listSorting.appendChild(sortLink);
+				}
+				$(pagination.parent)[0].appendChild(listSorting);				
+			}
+			var itemTemplate = pagination.item;
+			pagination.itemWidth = Math.floor(pagination.parent.width()/pagination.maxCol);
+			var listContent = document.createDocumentFragment();
+			$(data).each(function(i){
+				var newItem = $(itemTemplate).clone().show().css("display","inline-block").css("width",pagination.itemWidth+"px");
+				for(var key in this){
+					$("."+key,newItem).text(this[key]);
+				}
+				listContent.appendChild($(newItem)[0]);
+			})
+			var listPage = document.createElement("div");
+			listPage.style.width = "100%";
+			listPage.style["text-align"] = "right";
+			var itemCount = data.length;
+			var totalPage = Math.ceil(itemCount/(pagination.maxCol*pagination.maxRow));
+			for(var i=1;i<=totalPage;i++)
+			{
+				var pageLink = document.createElement("a");
+				pageLink.href = i;
+				pageLink.innerHTML = i;
+				pageLink.pageIndex = i;
+				pageLink.parentContainer = pagination.parent[0];
+				pageLink.onclick = function(e){
+					e.preventDefault();
+					this.parentContainer.settingPage.data.offset = this.parentContainer.settingPage.data.limit * (this.pageIndex-1);
+					this.parentContainer.loadData();
+				}
+				listPage.appendChild(pageLink);
+			}
+			$(pagination.parent)[0].appendChild(listContent);
+			$(pagination.parent)[0].appendChild(listPage);
+		}
+	};
+	$.fn.pagination.methods = {
+		updatePage:function(newSetting){
+			$(this).empty();
+			$.extend(this.settingPage,newSetting);
+			this.loadData();
+		},
+		loadData:function(){
+			var currentSetting = $.extend({},this.settingPage);
+			$.extend(currentSetting.data,currentSetting.filter);
+			currentSetting.data = JSON.stringify(currentSetting.data);
+			$.ajax(currentSetting);
+		}
 	}
 });

@@ -15,26 +15,24 @@ $(document).ready(function(){
 		url:"http://localhost:8080/oversign/service/store/getAllTemplateCategory",
 		type:"GET",
 		crossDomain:true,
-		success:function(data){			
+		success:function(data){
 			$(data).each(function(i){
 				var categoryItem = $("<a href='#'>");
-				$(categoryItem).text(this.categoryName).click(function(e){
-					e.preventDefault();
-				});
+				$(categoryItem).text(this.categoryName);
+				categoryItem[0].index = this.categoryNumber;				
+				categoryItem[0].onclick = function(e){
+					e.preventDefault;
+					$("#displayTemplate")[0].updatePage({
+						filter:{"categoryId":this.index}
+					})
+				}
 				$("#categoryFilter").append($("<li>").append(categoryItem));
 			})		
 		}
 	})
-	$.ajax({
+	$("#displayTemplate").pagination({
 		url:"http://localhost:8080/oversign/service/store/getAllTemplate",
-		type:"GET",
-		crossDomain:true,
-		success:function(data){
-			listTemplate = data;
-			$("#displayTemplate").pagination({
-				data:data
-			});
-			//loadTemplate();
-		}
-	})
+		filter:{"categoryId":1},
+		sortText:["Created date","Rating","Template title"]
+	});
 });
