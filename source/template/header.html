@@ -1,18 +1,13 @@
-<nav class="navbar-fixed-top blog-masthead">
-	<div class="container">
-	<div class="navbar-header">
-	<a type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" href="#navbar">
-	</a>
-	<!-- Insert Logo Here -->
-	<a class="navbar-brand" href="#">Template Generator Logo</a>
-	</div>
-	<nav class="blog-nav" id="navbar" class="collapse navbar-collapse">
-		<a class="nav-item blog-nav-item active" href="home">Home</a>
-		<a class="nav-item blog-nav-item" href="store/template">Template</a>
-		<a class="nav-item blog-nav-item" href="forum">Forum</a>
-		<a class="nav-item blog-nav-item" href="about-us">About Us</a>
-		<a class="nav-item blog-nav-item" href="contact-us">Contact Us</a>
-		<a class="blog-nav-item login-item" style="float:right!important;cursor:pointer;">Login | Register</a>
+<!-- Top Navbar -->
+	<nav class="clearfix">
+		<ul class="clearfix">
+			<li class="first"><a href="index.html">Oversign</a></li>
+			<li><a href="<?=BASEPATH?>home">Home</a></li>
+			<li><a href="<?=BASEPATH?>store/template">Template</a></li>
+			<li><a href="<?=BASEPATH?>forum">Forum</a></li>
+			<li>
+				<a href="#" class="md-trigger" data-modal="modal-login">Login</a>
+			</li>	
+		</ul>
+		<a href="#" id="pull">Menu</a>
 	</nav>
-	</div>
-</nav>
