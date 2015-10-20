@@ -1,0 +1,774 @@
+	<style>
+		/*body {
+			height: 100%;
+		}*/
+		html{
+		    min-height:100%;/* make sure it is at least as tall as the viewport */
+		    position:relative;
+		}
+	</style>
+	
+	<nav class="clearfix">
+		<ul class="clearfix">
+			<li class="first"><a href="index.html">Oversign</a></li>
+			<li class="second">
+				<a href="#">Page Name
+					<img src="source/images/icons/arrow-down-white.png" />
+				</a>
+			</li>
+			<li class="third"><a href="#">Tools</a></li>
+			<li><a href="#">Save</a></li>
+			<li><a href="#">Preview</a></li>
+			<li><a href="#">Publish</a></li>
+		</ul>
+		<a href="#" id="pull">Menu</a>
+	</nav>
+
+	<div class="top-menu-editor-separator" style="height:40px;"></div>
+
+	<div class="left-control">
+		<ul>
+			<li class="hvr-shrink left-control-list page" trigger-content-id="page-background-content"></li>
+			<li class="hvr-shrink left-control-list plus" trigger-content-id="add-content"></li>
+		</ul>
+	</div>
+	<!-- PAGE BACKGROUND CONTENT -->
+	<div class="left-content" id="page-background-content" style="display:none;">
+		<div class="content">
+			<div class="category-content">
+				<div class="header">
+					<label class="title">Page Background</label>
+				</div>
+				<div class="category-view">
+					<div class="title-section">
+						<div class="title">Solid Color</div>
+					</div>
+					<div class="items-section">
+						<ul>
+							<li class="bg-items blue"></li>
+							<li class="bg-items red"></li>
+							<li class="bg-items green"></li>
+							<li class="bg-items yellow"></li>
+							<li class="bg-items purple"></li>
+							<li class="bg-items darkblue"></li>
+							<li class="bg-items orange"></li>
+							<li class="bg-items gray"></li>
+						</ul>
+					</div>
+
+					<div class="title-section">
+						<div class="title">Not having the right colors ?</div>
+					</div>
+					<div class="items-section">
+						<form>
+							<label for="txtHexColor">Hex Color</label>
+							<input type="text" id="txtHexColor" class="input-hex-color" />
+							<input type="submit" id="btnSetBackgroundColor" class="button button-primary" value="Set Color" />
+						</form>
+					</div>
+					
+					<div class="title-section">
+						<div class="title">Upload background image</div>
+					</div>
+					<div class="items-section">
+						<input type="button" class="button button-primary u-full-width md-trigger" data-modal="modal-upload-bg-image" value="Upload Background Image" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ADD CONTENT  -->
+	<div class="left-content" id="add-content" style="display:none;">
+		<div class="content">
+			<ul class="category-list">
+				<li class="category" trigger-panel-id="text-panel">
+					Text
+				</li>
+				<li class="category" trigger-panel-id="button-panel">
+					Button
+				</li>
+				<li class="category" trigger-panel-id="textbox-panel">
+					Textbox
+				</li>
+				<li class="category" trigger-panel-id="image-panel">
+					Image
+				</li>
+			</ul>
+			<div class="category-content" id="text-panel">
+				<div class="header">
+					<label class="title">Add Text</label>
+				</div>
+				<div class="category-view">
+					<div>
+						<h1 class="draggable-element" element-type="text">Site Title</h1>
+					</div>
+					<div>
+						<h2 class="draggable-element" element-type="text">Page Title</h2>
+					</div>
+					<div>
+						<h4 class="draggable-element" element-type="text">Large Heading</h4>
+					</div>
+					<div>
+						<h6 class="draggable-element" element-type="text">Small Heading</h6>
+					</div>
+					<div>
+						<p class="draggable-element" element-type="text">I'm a paragraph. Click here to add your own text and edit me. It's easy.</p>
+					</div>
+				</div>
+			</div>
+			<div class="category-content" id="button-panel" style="display:none;">
+				<div class="header">
+					<label class="title">Add Button</label>
+				</div>
+				<div class="category-view">
+					<div class="title-section">
+						<div class="title">Simple Button</div>
+					</div>
+					<div class="items-section">
+						<input type="button" class="button button-primary draggable-element" value="Button" element-type="button" />
+						<input type="button" class="button button-danger draggable-element" value="Button" element-type="button" />
+						<input type="button" class="button button-success draggable-element" value="Button" element-type="button" />
+					</div>
+
+					<div class="title-section">
+						<div class="title">Grow Button</div>
+					</div>
+					<div class="items-section">
+						<input type="button" class="hvr-grow button button-primary draggable-element" value="Grow" element-type="button" />
+						<input type="button" class="hvr-grow button button-danger draggable-element" value="Grow" element-type="button" />
+						<input type="button" class="hvr-grow button button-success draggable-element" value="Grow" element-type="button" />
+					</div>
+
+					<div class="title-section">
+						<div class="title">Shrink Button</div>
+					</div>
+					<div class="items-section">
+						<input type="button" class="hvr-shrink button button-primary draggable-element" value="Shrink" element-type="button" />
+						<input type="button" class="hvr-shrink button button-danger draggable-element" value="Shrink" element-type="button" />
+						<input type="button" class="hvr-shrink button button-success draggable-element" value="Shrink" element-type="button" />
+					</div>
+
+					<div class="title-section">
+						<div class="title">Box Shadow Button</div>
+					</div>
+					<div class="items-section">
+						<input type="button" class="hvr-box-shadow-outset button button-primary draggable-element" value="Shrink" element-type="button" />
+						<input type="button" class="hvr-box-shadow-outset button-danger draggable-element" value="Shrink" element-type="button" />
+						<input type="button" class="hvr-box-shadow-outset button-success draggable-element" value="Shrink" element-type="button" />
+					</div>
+				</div>
+			</div>
+			<div class="category-content" id="textbox-panel" style="display:none;">
+				<div class="header">
+					<label class="title">Add Textbox</label>
+				</div>
+				<div class="category-view">
+					<div>
+						<input type="text" class="u-full-width draggable-element" element-type="textbox" />
+					</div>
+				</div>
+			</div>
+			<div class="category-content" id="image-panel" style="display:none;">
+				<div class="header">
+					<label class="title">Add Image</label>
+				</div>
+				<div class="category-view">
+					<div>
+						<input type="button" class="button button-primary u-full-width md-trigger" data-modal="modal-upload-image" value="Upload Image" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+
+	<!-- Primary Page Layout
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<div id="editor-container">
+		<div class="ruler vertical left"></div>
+		<div class="ruler vertical right"></div>
+
+		<div class="editor-workspace">
+			<div id="editor-header" class="editor-workspace editor-header">
+				<div class="editor-header-separator editor-content-separator top-point"></div>
+			</div>
+			<div id="editor-content" class="editor-workspace editor-content">
+			</div>
+			<div id="editor-footer" class="editor-workspace editor-footer">
+				<div class="editor-footer-separator editor-content-separator bottom-point"></div>
+			</div>
+		</div>
+	</div>
+	<!-- End Document
+  	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+  	<!-- Modal Upload Background Image -->
+	<div class="md-modal md-effect-1 modal-image" id="modal-upload-bg-image">
+		<div class="md-content">
+			<div class="md-content-header">
+				<div class="row">
+					<div class="eleven columns">
+						<h4>Upload background image</h4>
+					</div>
+					<div class="one columns">
+						<a href="#" class="md-close modal-close-button"></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="items-section">
+				<ul>
+					<li class="bg-items">
+						<img src="source/images/available_images/1.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/2.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/3.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/4.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/5.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/6.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/7.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/8.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/9.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/source/images/available_images/10.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/11.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/12.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/13.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/14.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/15.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="source/images/available_images/16.jpg" width="110" height="100"><br>
+					</li>
+				</ul>
+			</div>
+			<div class="row">
+	            <div class="twelve columns taright medium-pd-top">
+	            	<a id="btnSetBackgroundImage" href="#" class="button button-primary md-close">Set as background</a>
+	            </div>
+          	</div>
+		</div>
+	</div>
+
+	<!-- Modal Upload Background Image -->
+	<div class="md-modal md-effect-1 modal-image" id="modal-upload-image">
+		<div class="md-content">
+			<div class="md-content-header">
+				<div class="row">
+					<div class="eleven columns">
+						<h4>Upload image</h4>
+					</div>
+					<div class="one columns">
+						<a href="#" class="md-close modal-close-button"></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="items-section">
+				<ul>
+					<li class="bg-items">
+						<img src="images/available_images/1.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="images/available_images/2.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="images/available_images/3.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="images/available_images/4.jpg" width="110" height="100"><br>
+					</li>
+					<li class="bg-items">
+						<img src="images/available_images/5.jpg" width="110" height="100"><br>
+					</li>
+				</ul>
+			</div>
+			<div class="row">
+	            <div class="twelve columns taright medium-pd-top">
+	            	<a id="btnUploadImage" href="#" class="button button-primary md-close">Upload image</a>
+	            </div>
+          	</div>
+		</div>
+	</div>
+
+  	<div class="md-overlay"></div><!-- the overlay element -->
+
+  	<!-- Properties Content of Element -->
+
+  	<!-- Text -->
+  	<div id="properties-text" class="panel-properties">
+  		<div class="row">
+	        <div class="twelve columns">
+	          	<label>Opacity</label>
+	        	<input type="range" min="0" max="100" id="prop-opacity-text" class="u-full-width prop-opacity" />
+	        </div>
+	    </div>
+	    <div class="row">
+		    <div class="three columns">
+	          	<label class="tacenter">Width</label>
+	        	<input type="number" id="prop-width-text" class="u-full-width prop-width" />
+	        </div>
+	        <div class="three columns">
+	          	<label class="tacenter">Height</label>
+	        	<input type="number" id="prop-height-text" class="u-full-width prop-height" />
+	        </div>
+	        <div class="three columns">
+	          	<label class="tacenter">X</label>
+	        	<input type="number" id="prop-xpos-text" class="u-full-width prop-xpos" />
+	        </div>
+	        <div class="three columns">
+	          	<label class="tacenter">Y</label>
+	        	<input type="number" id="prop-ypos-text" class="u-full-width prop-ypos" />
+	        </div>
+	    </div>
+        <div class="row">
+	        <div class="six columns">
+	          	<label>Text Color</label>
+	        	<input type="color" id="prop-text-color-text" class="u-full-width prop-text-color">
+	        </div>
+	        <div class="six columns">
+	          	<label>Background Color</label>
+	        	<input type="color" id="prop-background-color-text" class="u-full-width prop-background-color">
+	        </div>
+	    </div>
+	    <div class="row">
+	        <div class="four columns">
+	          	<label>Border Width</label>
+	        	<input type="number" class="u-full-width prop-border-width">
+	        </div>
+	        <div class="four columns">
+	          	<label>Border Style</label>
+	          	<select class="u-full-width prop-border-style">
+	          		<option value="dashed">Dashed</option>
+	          		<option value="dotted">Dotted</option>
+	          		<option value="double">Double</option>
+	          		<option value="groove">Groove</option>
+	          		<option value="hidden">Hidden</option>
+	          		<option value="inherit">Inherit</option>
+	          		<option value="initial">Initial</option>
+	          		<option value="inset">Inset</option>
+	          		<option value="none">None</option>
+	          		<option value="outset">Outset</option>
+	          		<option value="ridge">Ridge</option>
+	          		<option value="solid">Solid</option>
+	          	</select>
+	        </div>
+	        <div class="four columns">
+	          	<label>Border Radius</label>
+	        	<input type="number" class="u-full-width prop-border-radius">
+	        </div>
+	    </div>
+	    <div class="row">
+	    	<div class="twelve columns">
+	          	<label>Border Color</label>
+	        	<input type="color" class="u-full-width prop-border-color">
+	        </div>
+	    </div>
+  	</div>
+
+  	<!-- Textbox -->
+  	<div id="properties-textbox" class="panel-properties">
+  		<div class="row">
+	  		<div class="twelve columns">
+	          	<label>Placeholder</label>
+	          	<input id="prop-placeholder-textbox" class="u-full-width" type="text" />
+	        </div>
+	    </div>
+	    <div class="row">
+	        <div class="twelve columns">
+	          	<label>Opacity</label>
+	        	<input type="range" min="0" max="100" id="prop-opacity-textbox" class="u-full-width prop-opacity" />
+	        </div>
+	    </div>
+	    <div class="row">
+		    <div class="three columns">
+	          	<label class="tacenter">Width</label>
+	        	<input type="number" id="prop-width-textbox" class="u-full-width prop-width" />
+	        </div>
+	        <div class="three columns">
+	          	<label class="tacenter">Height</label>
+	        	<input type="number" id="prop-height-textbox" class="u-full-width prop-height" />
+	        </div>
+	        <div class="three columns">
+	          	<label class="tacenter">X</label>
+	        	<input type="number" id="prop-xpos-textbox" class="u-full-width prop-xpos" />
+	        </div>
+	        <div class="three columns">
+	          	<label class="tacenter">Y</label>
+	        	<input type="number" id="prop-ypos-textbox" class="u-full-width prop-ypos" />
+	        </div>
+	    </div>
+        <div class="row">
+	        <div class="six columns">
+	          	<label>Text Color</label>
+	        	<input type="color" id="prop-text-color-textbox" class="u-full-width prop-text-color">
+	        </div>
+	        <div class="six columns">
+	          	<label>Background Color</label>
+	        	<input type="color" id="prop-background-color-textbox" class="u-full-width prop-background-color">
+	        </div>
+	    </div>
+	    <div class="row">
+	        <div class="four columns">
+	          	<label>Border Width</label>
+	        	<input type="number" class="u-full-width prop-border-width">
+	        </div>
+	        <div class="four columns">
+	          	<label>Border Style</label>
+	          	<select class="u-full-width prop-border-style">
+	          		<option value="dashed">Dashed</option>
+	          		<option value="dotted">Dotted</option>
+	          		<option value="double">Double</option>
+	          		<option value="groove">Groove</option>
+	          		<option value="hidden">Hidden</option>
+	          		<option value="inherit">Inherit</option>
+	          		<option value="initial">Initial</option>
+	          		<option value="inset">Inset</option>
+	          		<option value="none">None</option>
+	          		<option value="outset">Outset</option>
+	          		<option value="ridge">Ridge</option>
+	          		<option value="solid">Solid</option>
+	          	</select>
+	        </div>
+	        <div class="four columns">
+	          	<label>Border Radius</label>
+	        	<input type="number" class="u-full-width prop-border-radius">
+	        </div>
+	    </div>
+	    <div class="row">
+	    	<div class="twelve columns">
+	          	<label>Border Color</label>
+	        	<input type="color" class="u-full-width prop-border-color">
+	        </div>
+	    </div>
+  	</div>
+  	
+  	<!-- Button -->
+  	<div id="properties-button" class="panel-properties">
+  		<div class="row">
+	  		<div class="twelve columns">
+	          	<label>Button Text</label>
+	          	<input id="prop-text-button" class="u-full-width" type="text" />
+	        </div>
+        </div>
+        <div class="row">
+	        <div class="twelve columns">
+	          	<label>Opacity</label>
+	        	<input type="range" min="0" max="100" id="prop-opacity-button" class="u-full-width prop-opacity" />
+	        </div>
+	    </div>
+        <div class="row">
+		    <div class="three columns">
+	          	<label class="tacenter">Width</label>
+	        	<input type="number" id="prop-width-button" class="u-full-width prop-width" />
+	        </div>
+	        <div class="three columns">
+	          	<label class="tacenter">Height</label>
+	        	<input type="number" id="prop-height-button" class="u-full-width prop-height" />
+	        </div>
+	        <div class="three columns">
+	          	<label class="tacenter">X</label>
+	        	<input type="number" id="prop-xpos-button" class="u-full-width prop-xpos" />
+	        </div>
+	        <div class="three columns">
+	          	<label class="tacenter">Y</label>
+	        	<input type="number" id="prop-ypos-button" class="u-full-width prop-ypos" />
+	        </div>
+	    </div>
+        <div class="row">
+	        <div class="six columns">
+	          	<label>Text Color</label>
+	        	<input type="color" id="prop-text-color-button" class="u-full-width prop-text-color">
+	        </div>
+	        <div class="six columns">
+	          	<label>Background Color</label>
+	        	<input type="color" id="prop-background-color-button" class="u-full-width prop-background-color">
+	        </div>
+	    </div>
+	    <div class="row">
+	        <div class="four columns">
+	          	<label>Border Width</label>
+	        	<input type="number" class="u-full-width prop-border-width">
+	        </div>
+	        <div class="four columns">
+	          	<label>Border Style</label>
+	          	<select class="u-full-width prop-border-style">
+	          		<option value="dashed">Dashed</option>
+	          		<option value="dotted">Dotted</option>
+	          		<option value="double">Double</option>
+	          		<option value="groove">Groove</option>
+	          		<option value="hidden">Hidden</option>
+	          		<option value="inherit">Inherit</option>
+	          		<option value="initial">Initial</option>
+	          		<option value="inset">Inset</option>
+	          		<option value="none">None</option>
+	          		<option value="outset">Outset</option>
+	          		<option value="ridge">Ridge</option>
+	          		<option value="solid">Solid</option>
+	          	</select>
+	        </div>
+	        <div class="four columns">
+	          	<label>Border Radius</label>
+	        	<input type="number" class="u-full-width prop-border-radius">
+	        </div>
+	    </div>
+	    <div class="row">
+	    	<div class="twelve columns">
+	          	<label>Border Color</label>
+	        	<input type="color" class="u-full-width prop-border-color">
+	        </div>
+	    </div>
+  	</div>
+
+  	<!-- Image -->
+  	<div id="properties-image" class="panel-properties">
+  		<div class="row">
+	        <div class="twelve columns">
+	          	<label>Opacity</label>
+	        	<input type="range" min="0" max="100" id="prop-opacity-image" class="u-full-width prop-opacity" />
+	        </div>
+	    </div>
+	    <div class="row">
+		    <div class="three columns">
+	          	<label class="tacenter">Width</label>
+	        	<input type="number" id="prop-width-image" class="u-full-width prop-width" />
+	        </div>
+	        <div class="three columns">
+	          	<label class="tacenter">Height</label>
+	        	<input type="number" id="prop-height-image" class="u-full-width prop-height" />
+	        </div>
+	        <div class="three columns">
+	          	<label class="tacenter">X</label>
+	        	<input type="number" id="prop-xpos-image" class="u-full-width prop-xpos" />
+	        </div>
+	        <div class="three columns">
+	          	<label class="tacenter">Y</label>
+	        	<input type="number" id="prop-ypos-image" class="u-full-width prop-ypos" />
+	        </div>
+	    </div>
+	    <div class="row">
+	        <div class="four columns">
+	          	<label>Border Width</label>
+	        	<input type="number" class="u-full-width prop-border-width">
+	        </div>
+	        <div class="four columns">
+	          	<label>Border Style</label>
+	          	<select class="u-full-width prop-border-style">
+	          		<option value="dashed">Dashed</option>
+	          		<option value="dotted">Dotted</option>
+	          		<option value="double">Double</option>
+	          		<option value="groove">Groove</option>
+	          		<option value="hidden">Hidden</option>
+	          		<option value="inherit">Inherit</option>
+	          		<option value="initial">Initial</option>
+	          		<option value="inset">Inset</option>
+	          		<option value="none">None</option>
+	          		<option value="outset">Outset</option>
+	          		<option value="ridge">Ridge</option>
+	          		<option value="solid">Solid</option>
+	          	</select>
+	        </div>
+	        <div class="four columns">
+	          	<label>Border Radius</label>
+	        	<input type="number" class="u-full-width prop-border-radius">
+	        </div>
+	    </div>
+	    <div class="row">
+	    	<div class="twelve columns">
+	          	<label>Border Color</label>
+	        	<input type="color" class="u-full-width prop-border-color">
+	        </div>
+	    </div>
+  	</div>
+
+
+	<script type="text/javascript">
+
+		var editor_container = $('#editor-container');
+		var editor = $('#editor-content');
+		var editor_header = $('#editor-header');
+		var editor_footer = $('#editor-footer');
+		var editor_header_separator = $('.editor-header-separator');
+		var editor_footer_separator = $('.editor-footer-separator');
+		var grabbed_object = false;
+		var last_selected_object = false;
+		var is_resizing_object = false;
+		var is_resizing_editor = false;
+		var is_reposition_object = false;
+		var point = false;
+		var oldx = 0;
+		var oldy = 0;
+		var flag_object_counter = {};
+		var modal_image = $('.modal-image');
+
+		$('.left-control-list').click(function(e){
+			var self = $(this);
+			var selector_id = '#'+self.attr('trigger-content-id');
+
+			hideLeftContent();
+			$(selector_id).show();
+		});
+
+		$('.category').click(function(){
+			var self = $(this);
+			var selector_id = '#'+self.attr('trigger-panel-id');
+
+			$('.category-content', self.closest('div[id="add-content"]')).hide();
+			$(selector_id).show();
+		});
+
+		$('.draggable-element').click(function(e){
+			var self = $(this);
+			addElement(self, e);
+			hideLeftContent();
+		});
+
+		$('body').on('dblclick', '.draggable-element', function(){
+			var self = $(this);
+			var id = self.attr('id');
+			var element_type = self.attr('element-type');
+
+			if( element_type == 'text' ) {
+				renderCkeditorToElement( id, self.width(), self.height() );
+			}
+		});
+
+		$(document).mouseup(function(e) {
+			
+			if( grabbed_object ) {
+				// grabbed_object.draggable({
+				// 	cancel: false,
+				// 	disabled: false,
+				// 	containment: editor,
+				// 	drag: function(){
+				// 		var self = $(this);
+				// 		var left = self.css('left');
+				// 		var top = self.css('top');
+
+				// 		self.find('.draggable-element').css('left', left);
+				// 		self.find('.draggable-element').css('top', top);
+
+				// 		resetHolderSize( self );
+				// 	},
+				// 	stop: function() {
+
+				// 		// MOZILLA BUG - FF SOMEHOW FOLLOW SET THIS BELOW PROPERTIES AUTOMATICALLY
+				// 		resetHolderSize( $(this) );
+				// 	}
+				// });
+			}
+
+			grabbed_object = null;
+			is_resizing_object = false;
+			is_reposition_object = false;
+			point = false;
+		});
+
+		$(document).mousedown(function(e) {
+			
+			// COMMENTED BECAUSE CANNOT FOCUS ON TEXTBOX
+			
+			var class_list = e.target.classList;
+
+			if ( inArray(Array('edge', 'single-object'), class_list ) ) { // USER WANT TO RESIZE SINGLE OBJECT
+
+				grabbed_object = $(e.target).parent();
+				point = class_list[class_list.length-1];
+				point = ( point == 'active' ) ? class_list[class_list.length-2] : point;
+				oldx = e.pageX;
+				oldy = e.pageY;
+				is_resizing_object = true;
+				// grabbed_object.draggable("destroy");
+
+			} else if( inArray('editor-content-separator', class_list) ) { // USER WANT TO RESIZE EITHER EDITOR HEADER OR FOOTER
+
+				// grabbed_object = $(e.target).parent();
+				point = class_list[class_list.length-1];
+				point = ( point == 'active' ) ? class_list[class_list.length-2] : point;
+				oldx = e.pageX;
+				oldy = e.pageY;
+				is_resizing_editor = true;
+				return false;
+
+			} else if ( inArray('draggable-element', class_list) ) { // USER JUST SELECT ONE OBJECT
+
+				e.preventDefault();
+				resetAllSelectedObject();
+
+				grabbed_object = $(e.target).closest('.draggable-holder');
+				last_selected_object = grabbed_object;
+
+				grabbed_object.addClass('active');
+				grabbed_object.find('.edge').addClass('active');
+
+				is_reposition_object = true;
+				setMenuEditElement(grabbed_object);
+
+			} else if( inArray('editor-workspace', class_list) ) {
+				hideLeftContent();
+				resetAllSelectedObject();
+				setMenuEditElement( false, 'destroy');
+				setMenuEditProperties( false, 'destroy');
+
+				if( last_selected_object ) {
+					var id = last_selected_object.find('.draggable-element').attr('id');
+					var element_type = last_selected_object.find('.draggable-element').attr('element-type');
+
+					if( element_type == 'text' ) {
+						var width = last_selected_object.css('width');
+						var height = last_selected_object.css('height');
+
+						last_selected_object.find('.draggable-element').css('width', width);
+						last_selected_object.find('.draggable-element').css('height', height);
+					}
+
+					if( CKEDITOR.instances[id] ) {
+						CKEDITOR.instances[id].destroy(false);
+					}
+				}
+			}
+
+			setEditorHighlightedBorder(class_list);
+		});
+
+		$(document).mousemove(function(e){
+			if( is_reposition_object ){
+				repositionElement(grabbed_object, e);
+			} else if ( is_resizing_object ) {
+				var object = $('.draggable-element', grabbed_object);
+				resizeSingleObject( point, e, grabbed_object, object );
+			} else if( is_resizing_editor ) {
+				resizeEditor(point, e);
+			}
+
+			updateCoordinate(e);
+		});
+	</script>

@@ -1,0 +1,9 @@
+{
+	"html": [{
+		"source":"template-workspace.html",
+		"target":""
+	}],
+	"js": ["template-workspace/functions","template-workspace/editor","template-workspace/properties","template-workspace/modal/classie","template-workspace/modal/modalEffects","template-workspace/ckeditor/ckeditor"],
+	"css":["modal"],
+	"external":[]
+}

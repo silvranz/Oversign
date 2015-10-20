@@ -30,6 +30,8 @@
 		<script type="text/javascript" src="<?=BASEPATH?>source/library/js/jquery.js"></script>
 	    <script type="text/javascript" src="<?=BASEPATH?>source/library/js/main.js"></script>
 		<script src="<?=BASEPATH?>source/library/js/jquery.min.js"></script>
+		<script src="<?=BASEPATH?>source/js/jquery-1.11.4.js"></script>
+		<script src="<?=BASEPATH?>source/js/jquery-1.11.4-ui.js"></script>
 	</head>
 	<body>
 		<header>
