@@ -36,7 +36,7 @@
 				foreach($value as $script){
 					$tempScript = $retDoc->createElement('script',' ');
 					$tempScript->setAttribute ('type', 'text/javascript');
-					$tempScript->setAttribute ('src', 'http://localhost/oversign/source/library/js/'.$script.".js");
+					$tempScript->setAttribute ('src', BASEPATH.'source/library/js/'.$script.".js");
 					$body = $retDoc->getElementsByTagName('body')->item(0);
 					$body->insertBefore($tempScript,$body->firstChild);
 				}
@@ -46,13 +46,38 @@
 					$tempStyle = $retDoc->createElement('link','');
 					$tempStyle->setAttribute ('rel', 'stylesheet');
 					$tempStyle->setAttribute ('type', 'text/css');
-					$tempStyle->setAttribute ('href', 'http://localhost/oversign/source/library/css/'.$style.".css");
+					$tempStyle->setAttribute ('href', BASEPATH.'source/library/css/'.$style.".css");
 					$body = $retDoc->getElementsByTagName('body')->item(0);
 					$body->insertBefore($tempStyle,$body->firstChild);
 				}
 			}
 			else if($key == "external"){
-				$listExternal = $value;
+				/*foreach($value as $external){
+					$listFile = scandir("../source/library/external/".$external);
+					foreach($listFile as $subdir){
+						if($subdir == "css"){
+							$listStyle = scandir("../source/library/external/".$external."/".$subdir);
+							foreach($listStyle as $styles){
+								$tempStyle = $retDoc->createElement('link','');
+								$tempStyle->setAttribute ('rel', 'stylesheet');
+								$tempStyle->setAttribute ('type', 'text/css');
+								$tempStyle->setAttribute ('href', BASEPATH.'source/library/external/'.$external."/".$subdir."/".$styles);
+								$body = $retDoc->getElementsByTagName('body')->item(0);
+								$body->insertBefore($tempStyle,$body->firstChild);
+							}
+						}
+						else if($subdir == "js"){
+							$listScript = scandir("../source/library/external/".$external."/".$subdir);
+							foreach($listScript as $scripts){
+								$tempScript = $retDoc->createElement('script',' ');
+								$tempScript->setAttribute ('type', 'text/javascript');
+								$tempScript->setAttribute ('src', BASEPATH.'source/library/external/'.$external."/".$subdir."/".$styles);
+								$body = $retDoc->getElementsByTagName('body')->item(0);
+								$body->insertBefore($tempScript,$body->firstChild);
+							}
+						}
+					}
+				}*/
 			}
 		}
 		echo $retDoc->saveHTML();

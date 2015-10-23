@@ -1,16 +1,30 @@
-function loadContent(url){
-	history.replaceState({}, null, BASE_URL+url);
-	$(".nav-item.active").removeClass("active");
-	$("a[href='"+url+"']").addClass("active");
+function loadContent(url,windowOption=0,windowTitle="",windowWidth = 500,windowHeight = 800){
+	if(url=="#")return;
+	var requestedPage = url.split("oversign/")[1];
+	var windowHandler = "";
+	if(windowOption == 0)
+		history.replaceState({}, null,url);
+	else
+	{
+		windowHandler = window.open("",windowTitle,"scrollbars=1,width="+windowWidth+", height="+windowHeight);
+	}
 	$.ajax({
 		type:"POST",
 		url:BASE_URL+"service/",
-		data:{url:url},
+		data:{url:requestedPage},
+		windowOption:windowOption,
+		windowHandler:windowHandler,
 		beforeSend:function(){
-			$("#content").html($(".blocker").clone().show());
+			if(this.windowOption == 0)
+				$("#content").html($(".blocker").clone().show());
 		},
 		success:function(data){
-			$("#content").html(data);
+			if(this.windowOption == 0){
+				$("#content").html(data);
+			}
+			else if(this.windowOption == 1){
+				this.windowHandler.document.write(data);
+			}
 		}
 	})
 }
@@ -59,13 +73,11 @@ function fullScreenPopup(content){
 $(document).ready(function(){
 	var onloadTarget = window.location.href.replace(BASE_URL,"");
 	onloadTarget = onloadTarget==""?"home":onloadTarget;
-	$("*").click(function(e){
-		if($(this).hasClass("nav-item")){
-			e.preventDefault();
-			loadContent($(this).attr("href"));
-		}
+	$("a").click(function(e){
+		e.preventDefault();
+		loadContent($(this).attr("href"));
 	});
-	loadContent(onloadTarget);
+	loadContent(window.location.href);
 	$(".login-item").click(function(){
 		var loginModal = $("#loginModal");
 		loginModal = $(loginModal).customPopup();
@@ -177,6 +189,7 @@ $(document).ready(function(){
 		contentType:"application/json",
 		type:"POST",
 		crossDomain:true,
+		itemFunction:function(item,parent,index){},
 		success:function(data){
 			$(this.parent).empty();
 			var pagination = this;
@@ -210,6 +223,7 @@ $(document).ready(function(){
 				for(var key in this){
 					$("."+key,newItem).text(this[key]);
 				}
+				pagination.itemFunction(this,newItem,i);
 				listContent.appendChild($(newItem)[0]);
 			})
 			var listPage = document.createElement("div");

@@ -11,6 +11,9 @@ function loadTemplate(){
 	})
 }
 $(document).ready(function(){
+	$(".page-header").click(function(e){
+		loadContent("http://localhost/oversign/template-workspace",1,"Website workspace",800,500);
+	})
 	$.ajax({
 		url:"http://localhost:8080/oversign/service/store/getAllTemplateCategory",
 		type:"GET",
@@ -33,6 +36,15 @@ $(document).ready(function(){
 	$("#displayTemplate").pagination({
 		url:"http://localhost:8080/oversign/service/store/getAllTemplate",
 		filter:{"categoryId":1},
-		sortText:["Created date","Rating","Template title"]
+		sortText:["Created date","Rating","Template title"],
+		itemFunction:function(item,parent,index){
+			$(".previewImage",parent).attr("src",IMAGE_PATH+item.previewImage);
+			$(".editButton",parent).attr("index",index+1).click(function(e){
+				alert("edit template ke-"+$(this).attr("index"));
+			})
+			$(".previewButton",parent).attr("index",index+1).click(function(e){
+				alert("preview template ke-"+$(this).attr("index"));
+			})
+		}
 	});
 });
