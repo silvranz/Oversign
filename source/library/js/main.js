@@ -1,4 +1,4 @@
-function loadContent(url,windowOption=0,windowTitle="",windowWidth = 500,windowHeight = 800){
+function loadContent(url,windowOption=0,windowTitle="",windowWidth = screen.width,windowHeight = screen.height){
 	if(url=="#")return;
 	var requestedPage = url.split("oversign/")[1];
 	var windowHandler = "";
@@ -23,6 +23,7 @@ function loadContent(url,windowOption=0,windowTitle="",windowWidth = 500,windowH
 				$("#content").html(data);
 			}
 			else if(this.windowOption == 1){
+				this.windowHandler.document.documentElement.innerHTML = "";
 				this.windowHandler.document.write(data);
 			}
 		}
@@ -145,7 +146,10 @@ $(document).ready(function(){
 			})
 		})
 	})
-	
+	$(".clearfix.menuBar #widgetButton").click(function(e){
+		e.preventDefault();
+		loadContent("http://localhost/oversign/widget/workshop",1,"Widget workspace");
+	})
 	$.fn.customPopup = function(mode,animation,time){
 		mode = defaultValue(mode,"fullscreen");
 		animation = defaultValue(animation,defaultPopupAnimation());

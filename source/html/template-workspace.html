@@ -1,25 +1,69 @@
-<style>
-	/*body {
-		height: 100%;
-	}*/
-	html{
-		min-height:100%;/* make sure it is at least as tall as the viewport */
-		position:relative;
-	}
-</style>
+<!-- RULER -->
+<!-- <div class="ruler horizontal top"></div> -->
+<!-- <div class="ruler vertical left"></div> -->
+<!-- <div class="ruler vertical right"></div> -->
+<!-- <div class="ruler horizontal bottom"></div> -->
 
+<!-- Top Navbar -->
 <nav class="clearfix">
 	<ul class="clearfix">
 		<li class="first"><a href="index.html">Oversign</a></li>
 		<li class="second">
-			<a href="#">Page Name
-				<img src="source/images/icons/arrow-down-white.png" />
+			<a id="btnOpenBoxPage" href="#">
+				<span>Page Name</span>
+				<img src="icons/arrow-down-white.png" />
 			</a>
+			<div class="box-page">
+				<div class="row">
+					<div class="twelve columns">
+						<div class="box-list-page">
+							<ul>
+								<li class="item-template" style="display:none;">
+									<div class="row">
+										<div class="three columns">
+											<div style="border:1px solid #000; width:60px; height:40px;">
+												<!-- <img src="images/browser-mockup.jpg" style="width:60px; height:40px;" /> -->
+											</div>
+										</div>
+										<div class="nine columns">
+											<div class="page-name">Page Name</div>
+											<div class="page-control">
+												<a class="btnRenamePage" href="#">Rename</a>
+												<a class="btnDuplicatePage" href="#">Duplicate</a>
+												<a class="btnTriggerDeletePageModal md-trigger" href="#" data-modal="modal-delete-page">Delete</a>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<div style="margin: 5px 5px;">
+								<input type="button" id="btnOpenModalAddPage" style="margin-top:10px;" class="button button-primary u-full-width md-trigger" data-modal="modal-add-page" value="Add Pages" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</li>
-		<li class="third"><a href="#">Tools</a></li>
+		<li class="third">
+			<a id="btnOpenBoxTools" href="#">Tools</a>
+			<div class="box-tools">
+				<div class="row">
+					<div class="twelve columns">
+						<label>Ruler</label>
+						<label class="switch switch-green">
+							<input type="checkbox" id="switch-ruler" class="switch-input" checked>
+							<span class="switch-label" data-on="On" data-off="Off"></span>
+							<span class="switch-handle"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</li>
 		<li><a href="#">Save</a></li>
 		<li><a href="#">Preview</a></li>
-		<li><a href="#">Publish</a></li>
+		<li>
+			<a id="btnPublish" href="#">Publish</a>
+		</li>
 	</ul>
 	<a href="#" id="pull">Menu</a>
 </nav>
@@ -32,6 +76,7 @@
 		<li class="hvr-shrink left-control-list plus" trigger-content-id="add-content"></li>
 	</ul>
 </div>
+
 <!-- PAGE BACKGROUND CONTENT -->
 <div class="left-content" id="page-background-content" style="display:none;">
 	<div class="content">
@@ -45,10 +90,12 @@
 				</div>
 				<div class="items-section">
 					<ul>
+						<!--
 						<li class="bg-items blue"></li>
 						<li class="bg-items red"></li>
 						<li class="bg-items green"></li>
 						<li class="bg-items yellow"></li>
+						-->
 						<li class="bg-items purple"></li>
 						<li class="bg-items darkblue"></li>
 						<li class="bg-items orange"></li>
@@ -73,6 +120,10 @@
 				<div class="items-section">
 					<input type="button" class="button button-primary u-full-width md-trigger" data-modal="modal-upload-bg-image" value="Upload Background Image" />
 				</div>
+
+				<div class="items-section">
+					<input type="button" id="btnApplyBackgroundToOtherPages" class="button button-success u-full-width"value="Apply to other pages" />
+				</div>
 			</div>
 		</div>
 	</div>
@@ -93,6 +144,9 @@
 			</li>
 			<li class="category" trigger-panel-id="image-panel">
 				Image
+			</li>
+			<li class="category" trigger-panel-id="container-panel">
+				Container
 			</li>
 		</ul>
 		<div class="category-content" id="text-panel">
@@ -179,6 +233,33 @@
 				</div>
 			</div>
 		</div>
+		<div class="category-content" id="container-panel" style="display:none;">
+			<div class="header">
+				<label class="title">Add Container</label>
+			</div>
+			<div class="category-view">
+				<div class="row">
+					<div class="twelve column">
+						<div class="container-box gray draggable-element" element-type="container"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="twelve column">
+						<div class="container-box border-solid draggable-element" element-type="container"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="twelve column">
+						<div class="container-box border-dashed draggable-element" element-type="container"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="twelve column">
+						<div class="container-box border-dotted draggable-element" element-type="container"></div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -190,7 +271,7 @@
 	<div class="ruler vertical left"></div>
 	<div class="ruler vertical right"></div>
 
-	<div class="editor-workspace">
+	<div id="editor-workspace">
 		<div id="editor-header" class="editor-workspace editor-header">
 			<div class="editor-header-separator editor-content-separator top-point"></div>
 		</div>
@@ -221,52 +302,52 @@
 		<div class="items-section">
 			<ul>
 				<li class="bg-items">
-					<img src="source/images/available_images/1.jpg" width="110" height="100"><br>
+					<img src="images/available_images/1.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/2.jpg" width="110" height="100"><br>
+					<img src="images/available_images/2.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/3.jpg" width="110" height="100"><br>
+					<img src="images/available_images/3.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/4.jpg" width="110" height="100"><br>
+					<img src="images/available_images/4.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/5.jpg" width="110" height="100"><br>
+					<img src="images/available_images/5.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/6.jpg" width="110" height="100"><br>
+					<img src="images/available_images/6.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/7.jpg" width="110" height="100"><br>
+					<img src="images/available_images/7.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/8.jpg" width="110" height="100"><br>
+					<img src="images/available_images/8.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/9.jpg" width="110" height="100"><br>
+					<img src="images/available_images/9.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/source/images/available_images/10.jpg" width="110" height="100"><br>
+					<img src="images/available_images/10.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/11.jpg" width="110" height="100"><br>
+					<img src="images/available_images/11.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/12.jpg" width="110" height="100"><br>
+					<img src="images/available_images/12.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/13.jpg" width="110" height="100"><br>
+					<img src="images/available_images/13.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/14.jpg" width="110" height="100"><br>
+					<img src="images/available_images/14.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/15.jpg" width="110" height="100"><br>
+					<img src="images/available_images/15.jpg" width="110" height="100"><br>
 				</li>
 				<li class="bg-items">
-					<img src="source/images/available_images/16.jpg" width="110" height="100"><br>
+					<img src="images/available_images/16.jpg" width="110" height="100"><br>
 				</li>
 			</ul>
 		</div>
@@ -314,6 +395,90 @@
 		<div class="row">
 			<div class="twelve columns taright medium-pd-top">
 				<a id="btnUploadImage" href="#" class="button button-primary md-close">Upload image</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Add Page -->
+<div class="md-modal md-effect-1" id="modal-add-page">
+	<div class="md-content">
+		<div class="md-content-header">
+			<div class="row">
+				<div class="eleven columns">
+					<h4>Add Pages</h4>
+				</div>
+				<div class="one columns">
+					<a href="#" class="md-close modal-close-button"></a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="three columns">
+				<div class="box-add-page-category">
+					<ul>
+						<li>Blank Page </li>
+						<li>About Page</li>
+						<li>Contact Page</li>
+					</ul>
+				</div>
+			</div>
+			<div class="nine columns">
+				<div class="box-add-page-content">
+					<ul>
+						<li>
+							<div class="row">
+								<div class="three columns">
+									<div style="border:1px solid #000; width:100px; height:130px; margin-left: 10px;">
+										<!-- <img src="images/browser-mockup.jpg" style="width:60px; height:40px;" /> -->
+									</div>
+								</div>
+								<div class="nine columns no-mg">
+									<div class="page-name">Blank Page</div>
+									<div class="page-description">
+										Completely blank page. Match for those who had taste like designer
+									</div>
+									<div class="page-control">
+										<input type="button" class="button button-primary btnChoosePageItem" value="I want this" />
+										<input type="text" class="input-page-name"  placeholder="Type your page name here &hellip;" />
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns taright medium-pd-top">
+				<a id="btnAddPage" href="#" class="button button-primary md-close">Add</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Delete Page -->
+<div class="md-modal md-effect-1" id="modal-delete-page">
+	<div class="md-content">
+		<div class="md-content-header">
+			<div class="row">
+				<div class="eleven columns">
+					<h4>Delete Page</h4>
+				</div>
+				<div class="one columns">
+					<a href="#" class="md-close modal-close-button"></a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns tacenter">
+				<h6 id="page-delete-confirmation">Are you sure to delete selected page?</h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns taright medium-pd-top">
+				<a href="#" class="button md-close">Cancel</a>
+				<a id="btnDeletePage" href="#" class="button button-danger md-close">Delete</a>
 			</div>
 		</div>
 	</div>
@@ -390,6 +555,16 @@
 		<div class="twelve columns">
 			<label>Border Color</label>
 			<input type="color" class="u-full-width prop-border-color">
+		</div>
+	</div>
+	<div class="row">
+		<div class="twelve columns">
+			<label>Show on all pages</label>
+			<label class="switch switch-green">
+				<input type="checkbox" class="switch-input prop-switch-showall">
+				<span class="switch-label" data-on="On" data-off="Off"></span>
+				<span class="switch-handle"></span>
+			</label>
 		</div>
 	</div>
 </div>
@@ -469,6 +644,16 @@
 			<input type="color" class="u-full-width prop-border-color">
 		</div>
 	</div>
+	<div class="row">
+		<div class="twelve columns">
+			<label>Show on all pages</label>
+			<label class="switch switch-green">
+				<input type="checkbox" class="switch-input prop-switch-showall">
+				<span class="switch-label" data-on="On" data-off="Off"></span>
+				<span class="switch-handle"></span>
+			</label>
+		</div>
+	</div>
 </div>
 
 <!-- Button -->
@@ -546,6 +731,16 @@
 			<input type="color" class="u-full-width prop-border-color">
 		</div>
 	</div>
+	<div class="row">
+		<div class="twelve columns">
+			<label>Show on all pages</label>
+			<label class="switch switch-green">
+				<input type="checkbox" class="switch-input prop-switch-showall">
+				<span class="switch-label" data-on="On" data-off="Off"></span>
+				<span class="switch-handle"></span>
+			</label>
+		</div>
+	</div>
 </div>
 
 <!-- Image -->
@@ -607,168 +802,108 @@
 			<input type="color" class="u-full-width prop-border-color">
 		</div>
 	</div>
+	<div class="row">
+		<div class="twelve columns">
+			<label>Show on all pages</label>
+			<label class="switch switch-green">
+				<input type="checkbox" class="switch-input prop-switch-showall">
+				<span class="switch-label" data-on="On" data-off="Off"></span>
+				<span class="switch-handle"></span>
+			</label>
+		</div>
+	</div>
 </div>
 
+<!-- Image -->
+<div id="properties-container" class="panel-properties">
+	<div class="row">
+		<div class="twelve columns">
+			<label>Opacity</label>
+			<input type="range" min="0" max="100" id="prop-opacity-container" class="u-full-width prop-opacity" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="three columns">
+			<label class="tacenter">Width</label>
+			<input type="number" id="prop-width-container" class="u-full-width prop-width" />
+		</div>
+		<div class="three columns">
+			<label class="tacenter">Height</label>
+			<input type="number" id="prop-height-container" class="u-full-width prop-height" />
+		</div>
+		<div class="three columns">
+			<label class="tacenter">X</label>
+			<input type="number" id="prop-xpos-container" class="u-full-width prop-xpos" />
+		</div>
+		<div class="three columns">
+			<label class="tacenter">Y</label>
+			<input type="number" id="prop-ypos-container" class="u-full-width prop-ypos" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="four columns">
+			<label>Border Width</label>
+			<input type="number" class="u-full-width prop-border-width">
+		</div>
+		<div class="four columns">
+			<label>Border Style</label>
+			<select class="u-full-width prop-border-style">
+				<option value="dashed">Dashed</option>
+				<option value="dotted">Dotted</option>
+				<option value="double">Double</option>
+				<option value="groove">Groove</option>
+				<option value="hidden">Hidden</option>
+				<option value="inherit">Inherit</option>
+				<option value="initial">Initial</option>
+				<option value="inset">Inset</option>
+				<option value="none">None</option>
+				<option value="outset">Outset</option>
+				<option value="ridge">Ridge</option>
+				<option value="solid">Solid</option>
+			</select>
+		</div>
+		<div class="four columns">
+			<label>Border Radius</label>
+			<input type="number" class="u-full-width prop-border-radius">
+		</div>
+	</div>
+	<div class="row">
+		<div class="twelve columns">
+			<label>Border Color</label>
+			<input type="color" class="u-full-width prop-border-color">
+		</div>
+	</div>
+	<div class="row">
+		<div class="twelve columns">
+			<label>Background Color</label>
+			<input type="color" id="prop-background-color-container" class="u-full-width prop-background-color">
+		</div>
+	</div>
+	<div class="row">
+		<div class="twelve columns">
+			<label>Show on all pages</label>
+			<label class="switch switch-green">
+				<input type="checkbox" class="switch-input prop-switch-showall">
+				<span class="switch-label" data-on="On" data-off="Off"></span>
+				<span class="switch-handle"></span>
+			</label>
+		</div>
+	</div>
+</div>
 
-<script type="text/javascript">
-
-	var editor_container = $('#editor-container');
-	var editor = $('#editor-content');
-	var editor_header = $('#editor-header');
-	var editor_footer = $('#editor-footer');
-	var editor_header_separator = $('.editor-header-separator');
-	var editor_footer_separator = $('.editor-footer-separator');
-	var grabbed_object = false;
-	var last_selected_object = false;
-	var is_resizing_object = false;
-	var is_resizing_editor = false;
-	var is_reposition_object = false;
-	var point = false;
-	var oldx = 0;
-	var oldy = 0;
-	var flag_object_counter = {};
-	var modal_image = $('.modal-image');
-
-	$('.left-control-list').click(function(e){
-		var self = $(this);
-		var selector_id = '#'+self.attr('trigger-content-id');
-
-		hideLeftContent();
-		$(selector_id).show();
-	});
-
-	$('.category').click(function(){
-		var self = $(this);
-		var selector_id = '#'+self.attr('trigger-panel-id');
-
-		$('.category-content', self.closest('div[id="add-content"]')).hide();
-		$(selector_id).show();
-	});
-
-	$('.draggable-element').click(function(e){
-		var self = $(this);
-		addElement(self, e);
-		hideLeftContent();
-	});
-
-	$('body').on('dblclick', '.draggable-element', function(){
-		var self = $(this);
-		var id = self.attr('id');
-		var element_type = self.attr('element-type');
-
-		if( element_type == 'text' ) {
-			renderCkeditorToElement( id, self.width(), self.height() );
-		}
-	});
-
-	$(document).mouseup(function(e) {
-		
-		if( grabbed_object ) {
-			// grabbed_object.draggable({
-			// 	cancel: false,
-			// 	disabled: false,
-			// 	containment: editor,
-			// 	drag: function(){
-			// 		var self = $(this);
-			// 		var left = self.css('left');
-			// 		var top = self.css('top');
-
-			// 		self.find('.draggable-element').css('left', left);
-			// 		self.find('.draggable-element').css('top', top);
-
-			// 		resetHolderSize( self );
-			// 	},
-			// 	stop: function() {
-
-			// 		// MOZILLA BUG - FF SOMEHOW FOLLOW SET THIS BELOW PROPERTIES AUTOMATICALLY
-			// 		resetHolderSize( $(this) );
-			// 	}
-			// });
-		}
-
-		grabbed_object = null;
-		is_resizing_object = false;
-		is_reposition_object = false;
-		point = false;
-	});
-
-	$(document).mousedown(function(e) {
-		
-		// COMMENTED BECAUSE CANNOT FOCUS ON TEXTBOX
-		
-		var class_list = e.target.classList;
-
-		if ( inArray(Array('edge', 'single-object'), class_list ) ) { // USER WANT TO RESIZE SINGLE OBJECT
-
-			grabbed_object = $(e.target).parent();
-			point = class_list[class_list.length-1];
-			point = ( point == 'active' ) ? class_list[class_list.length-2] : point;
-			oldx = e.pageX;
-			oldy = e.pageY;
-			is_resizing_object = true;
-			// grabbed_object.draggable("destroy");
-
-		} else if( inArray('editor-content-separator', class_list) ) { // USER WANT TO RESIZE EITHER EDITOR HEADER OR FOOTER
-
-			// grabbed_object = $(e.target).parent();
-			point = class_list[class_list.length-1];
-			point = ( point == 'active' ) ? class_list[class_list.length-2] : point;
-			oldx = e.pageX;
-			oldy = e.pageY;
-			is_resizing_editor = true;
-			return false;
-
-		} else if ( inArray('draggable-element', class_list) ) { // USER JUST SELECT ONE OBJECT
-
-			e.preventDefault();
-			resetAllSelectedObject();
-
-			grabbed_object = $(e.target).closest('.draggable-holder');
-			last_selected_object = grabbed_object;
-
-			grabbed_object.addClass('active');
-			grabbed_object.find('.edge').addClass('active');
-
-			is_reposition_object = true;
-			setMenuEditElement(grabbed_object);
-
-		} else if( inArray('editor-workspace', class_list) ) {
-			hideLeftContent();
-			resetAllSelectedObject();
-			setMenuEditElement( false, 'destroy');
-			setMenuEditProperties( false, 'destroy');
-
-			if( last_selected_object ) {
-				var id = last_selected_object.find('.draggable-element').attr('id');
-				var element_type = last_selected_object.find('.draggable-element').attr('element-type');
-
-				if( element_type == 'text' ) {
-					var width = last_selected_object.css('width');
-					var height = last_selected_object.css('height');
-
-					last_selected_object.find('.draggable-element').css('width', width);
-					last_selected_object.find('.draggable-element').css('height', height);
-				}
-
-				if( CKEDITOR.instances[id] ) {
-					CKEDITOR.instances[id].destroy(false);
-				}
-			}
-		}
-
-		setEditorHighlightedBorder(class_list);
-	});
-
-	$(document).mousemove(function(e){
-		if( is_reposition_object ){
-			repositionElement(grabbed_object, e);
-		} else if ( is_resizing_object ) {
-			var object = $('.draggable-element', grabbed_object);
-			resizeSingleObject( point, e, grabbed_object, object );
-		} else if( is_resizing_editor ) {
-			resizeEditor(point, e);
-		}
-
-		updateCoordinate(e);
-	});
-</script>
+<div class="contextmenu">
+	<ul class="menu-default">
+		<li class="manipulate-element" type="cut">Cut</li>
+		<li class="manipulate-element" type="copy">Copy</li>
+		<li class="manipulate-element" type="duplicate">Duplicate</li>
+	</ul>
+	<ul class="menu-default">
+		<li class="reorder-element" type="bring-to-front">Bring to Front</li>
+		<li class="reorder-element" type="bring-forward">Bring Forward</li>
+		<li class="reorder-element" type="send-backward">Send Backward</li>
+		<li class="reorder-element" type="send-to-back">Send to Back</li>
+	</ul>
+	<ul class="no-after menu-paste">
+		<li class="manipulate-element" type="paste">Paste</li>
+	</ul>
+</div>

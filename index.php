@@ -1,5 +1,5 @@
 <?php 
-	define("BASEPATH","http://localhost:1234/oversign/");
+	define("BASEPATH","http://localhost/oversign/");
 ?>
 <html>
 	<head>
@@ -37,15 +37,14 @@
 		<header>
 			<?php include("source/template/header.html"); ?>
 		</header>		
-		<div id="content">			
+		<div id="content" style="padding:60 20 20 20">
 		</div>		
 		<footer class="bs-docs-footer" role="contentinfo">
 			<?php include("source/template/footer.html"); ?>
 		</footer>
-		<!--
-		<div class="blocker">
+		<div class="blocker" style="display:none">
 			<img src="source/images/LoadingCircle.gif" />
-		</div>-->
+		</div>
 		<!-- Start Of Modal -->
 		  	<!-- Modal Login -->
 		<div class="md-modal md-effect-1" id="modal-login">

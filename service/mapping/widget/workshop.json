@@ -5,5 +5,5 @@
 	}],
 	"js": ["widget/workshop"],
 	"css":["workshop"],
-	"external":[]
+	"external":["skeleton"]
 }
