@@ -29,7 +29,6 @@ function initModal() {
 		function removeModalHandler() {
 			removeModal( classie.has( el, 'md-setperspective' ) ); 
 		}
-		console.log(el);
 		el.addEventListener( 'click', function( ev ) {
 			classie.add( modal, 'md-show' );
 			overlay.removeEventListener( 'click', removeModalHandler );
