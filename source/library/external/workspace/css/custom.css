@@ -848,7 +848,7 @@ ul.inline > li {
 .box-page .box-list-page {
   /*min-height: 400px;*/
   position: relative;
-  max-height: 400px;
+  max-height: 515px;
   opacity: 1;
   background-color: #FCFCFC;
   box-shadow: 0 0 14px 0 rgba(22, 45, 61, 0.36);
@@ -883,7 +883,7 @@ ul.inline > li {
 }
 
 .box-page .box-list-page ul li .row {
-  padding: 12px 0;
+  padding: 6px 0;
 }
 .box-page .box-list-page ul li:hover {
   background-color: rgba(51,195,240, 0.1);

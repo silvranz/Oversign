@@ -536,6 +536,82 @@ var init = function( json ){
 		setEditorBgColor(color);
 	});
 	/* END Upload Image + Set Background Image */
+	$('body').on('click', '#btnDeletePage', function(e){
+		e.preventDefault();
+		e.stopImmediatePropagation();
+
+		var self = $(this);
+		var pageid = self.attr('data-id');
+		
+		for( key in pages ) {
+			var page = pages[key];
+			if( page.id == pageid ) {
+				pages.splice(key, 1);
+				break;
+			}
+		}
+
+		for( key in elements ) {
+			var element = elements[key];
+			var show_on_page = element.showOnPage;
+			for( k in show_on_page ) {
+				if( show_on_page[k].id == pageid ) {
+					elements[key].showOnPage.splice(k, 1);
+					break;
+				}
+			}
+		}
+
+		$('.box-page .box-list-page li[id="'+pageid+'"]').remove();
+
+		if( pages.length ) {
+			if( $('#btnOpenBoxPage span').attr('active-page-id') == pageid ) {
+				editor_container.find('.draggable-holder').remove();
+
+				var page = pages[0];
+				setContainerHeaderFooter(page);
+				displayFilteredElement(page.id);
+				$('#btnOpenBoxPage span').attr('active-page-id', page.id).text(page.name);
+			}
+		} else {
+			editor_container.find('.draggable-holder').remove();
+			resetWorkspace();
+			$('#btnOpenBoxPage span').attr('active-page-id', 0).text("Add page...");
+			$('.left-control').fadeOut(100);
+		}
+	});
+
+	$('body').on('click', '.box-page .box-list-page .switch-homepage', function(e){
+		e.preventDefault();
+		e.stopImmediatePropagation();
+		$('.switch-homepage').prop('checked', false);
+		
+		var self = $(this);
+		var pageid = self.closest('li').attr('id');
+		self.closest('label.switch').find('.switch-input').prop('checked', true);
+
+		for( key in pages ) {
+			var page = pages[key];
+			if( page.id == pageid ) {
+				pages[key].is_homepage = true;
+			} else {
+				pages[key].is_homepage = false;
+			}
+		}
+	});
+	$('body').on('click', '#btnAddPage', function(e){
+		e.preventDefault();
+		var pagename = $('.input-page-name.selected').val();
+		var page = addPage(pagename, 'add');
+		setContainerHeaderFooter(page);
+		displayFilteredElement(page.id);
+		$('.left-control').fadeIn(100);
+		// prevent all object being selected
+		// $('.draggable-holder').removeClass('active');
+		// $('.edge-holder').removeClass('active');
+		// setMenuEditElement(false, 'destroy');
+	});
+	
 	initPages(pages);
 	refreshObjectCounter();
 
@@ -776,6 +852,154 @@ var saveState = function(){
 	console.log(JSON.stringify(pages, null, '\t'));
 }
 
+var addPage = function( page, status ) {
+
+	status = (typeof status === "undefined" || status === null) ? 'init' : status;
+	var tmp_page = $('.box-page .box-list-page ul li.item-template').clone().removeAttr('class').show();
+	var pageid = setObjectCounter('page');
+
+	if( status == 'init' ) {
+		if( page.is_homepage ) {
+			activePageText = page.name;
+			activePageId = page.id;
+			setContainerHeaderFooter(page);
+			displayFilteredElement(activePageId);
+		}
+		tmp_page.attr('id', page.id);
+		tmp_page.find('.page-name').text(page.name);
+
+		newpage = page;
+		saveState();
+		
+	} else if( status == 'add' ) {
+		activePageText = page;
+		activePageId = pageid;
+		tmp_page.attr('id', pageid);
+		tmp_page.find('.page-name').text(page);
+
+		var newpage = {
+			id : pageid,
+			name : page,
+			header : {
+				'background-color' : 'transparent',
+				'height' : '110px',
+				'width' : '100%',
+			},
+			footer : {
+				'background-color' : 'transparent',
+				'height' : '110px',
+				'width' : '100%',
+			},
+			attribute : {
+				'style' : {
+					'background-color': "rgba(0, 0, 0, 0)",
+				}
+			},
+			is_homepage : false,
+		}
+
+		for( key in elements ) {
+			var element = elements[key];
+			var display = ( typeof element.attribute['showall'] === "undefined" || element.attribute['showall'] === null ) ? false : element.attribute['showall'];
+			display = ( display == 'true' ) ? true : false;
+			elements[key].showOnPage.push({
+				'id' : pageid,
+				'display': display,
+			});
+		}
+		pages.push(newpage);
+		saveState();
+	
+	} else if( status == 'duplicate' ) {
+
+		var newpage = $.extend(true, {}, page);
+		newpage.id = pageid;
+		newpage.name = 'Copy from ' + page.name;
+		newpage.is_homepage = false;
+
+		var flagExistsPageName = true;
+		while(flagExistsPageName){
+			for( key in pages ) {
+				var curpage = pages[key];
+				if( curpage.name == newpage.name ) {
+					newpage.name = 'Copy ' + newpage.name;
+					flagExistsPageName = true;
+					break;
+				} else {
+					flagExistsPageName = false;
+				}
+			}
+		}
+
+		tmp_page.attr('id', pageid);
+		tmp_page.find('.page-name').text(newpage.name);
+
+		for( key in elements ) {
+			var element = elements[key];
+			var showall = ( typeof element.attribute['showall'] === "undefined" || element.attribute['showall'] === null ) ? false : element.attribute['showall'];
+			showall = ( showall == 'true' ) ? true : false;
+
+			if( showall ) {
+				elements[key].showOnPage.push({
+					'id' : pageid,
+					'display': true,
+				});
+			} else {
+
+				console.log('MASUKKKKK');
+				if( element.createdOnPage == page.id ) {
+
+					var newelement = $.extend(true, {}, element);
+					element.showOnPage.push({
+						'id' : pageid,
+						'display' : false,
+					});
+
+					var id = parseInt(flag_object_counter[newelement.attribute['element-type']]) + 1;
+					flag_object_counter[newelement.attribute['element-type']] = id;
+
+					newelement.createdOnPage = pageid;
+					newelement.id = newelement.attribute['element-type'] + id;
+					newelement.attribute.id = newelement.attribute['element-type'] + id;
+					for( k in newelement.showOnPage ) {
+						newelement.showOnPage[k].display = false;
+					}
+					newelement.showOnPage.push({
+						'id' : pageid,
+						'display' : true,
+					});
+
+					elements.push(newelement);
+				}
+
+				// for( k in elements[key].showOnPage ) {
+				// 	var show_on_page = elements[key].showOnPage[k];
+				// 	if( show_on_page.id == page.id ) {
+				// 		elements[key].showOnPage.push({
+				// 			'id' : pageid,
+				// 			'display': show_on_page.display,
+				// 		});
+				// 		break;
+				// 	}
+				// }
+			}
+		}
+
+		pages.push(newpage);
+		setContainerHeaderFooter(newpage);
+		displayFilteredElement(newpage.id);
+	}
+
+	if( newpage.is_homepage ) {
+		tmp_page.find('.switch-homepage').prop('checked', true);
+	}
+	$('.box-page .box-list-page ul').append(tmp_page);
+	$('#btnOpenBoxPage span').attr('active-page-id', activePageId).text(activePageText);
+	initModal();
+
+	return newpage;
+}
+
 var displayFilteredElement = function( pageid ) {
 
 	for( i in elements ) {
@@ -789,6 +1013,12 @@ var displayFilteredElement = function( pageid ) {
 			}
 		}
 	}
+}
+
+var resetWorkspace = function(){
+	editor_workspace.css('background-color', 'transparent');
+	editor_header.css('background-color', 'transparent');
+	editor_footer.css('background-color', 'transparent');
 }
 
 var renderElementToHTML = function( element ) {
