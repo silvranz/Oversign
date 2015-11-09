@@ -175,11 +175,13 @@ var setMenuEditElement = function( element, status ) {
 	status = (typeof status === "undefined" || status === null) ? 'show' : status; 
 	$('.menu-edit-container').remove();
 	$('.box-edit-properties').remove();
+	$('.box-edit-events').remove();
 
 	if( status == 'show' ) {
 		var menu_wrapper = $('<div class="menu-edit-container">'+
 			'<div class="menu-edit-text">Edit Text</div>'+
 			'<div class="menu-edit-properties">Properties</div>'+
+			'<div class="menu-edit-events">Events</div>'+
 			'<div class="menu-delete">Delete</div>'+
 		'</div>');
 		if( element.find('.draggable-element').attr('element-type') != 'text' ) {
@@ -408,6 +410,11 @@ var init = function( json ){
 	$('body').on('click', '.prop-close-button', function(e){
 		e.preventDefault();
 		$('.box-edit-properties').remove();
+	});
+	/* Close Events */
+	$('body').on('click', '.event-close-button', function(e){
+		e.preventDefault();
+		$('.box-edit-events').remove();
 	});
 
 	/* Ruler */

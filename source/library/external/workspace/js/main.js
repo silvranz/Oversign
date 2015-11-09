@@ -13,11 +13,9 @@
 	  });
 	  return obj;
 	}
-
 	return old.apply(this, arguments);
   };
 })($.fn.attr);
-
 var editor_json = {
 	'pages' : [
 		{
@@ -39,6 +37,7 @@ var editor_json = {
 				}
 			},
 			is_homepage : true,
+			events:[]
 		},
 		{
 			id : 'page2',
@@ -59,6 +58,7 @@ var editor_json = {
 				}
 			},
 			is_homepage : false,
+			events:[]
 		},
 	],
 	// 'elements' : [

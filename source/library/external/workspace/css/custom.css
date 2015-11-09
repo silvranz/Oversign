@@ -622,6 +622,17 @@ ul.inline > li {
   /*border-radius: 6px;*/
 }
 
+.draggable-holder > .menu-edit-container > .menu-edit-events {
+  border: 1px solid gray; 
+  width: 63px; 
+  height: 24px; 
+  padding: 3px;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 5px;
+  /*border-radius: 6px;*/
+}
+
 .draggable-holder > .menu-edit-container > .menu-edit-properties {
   border: 1px solid gray; 
   width: 72px; 
@@ -648,6 +659,16 @@ ul.inline > li {
 
 .draggable-holder > .menu-edit-container > .menu-edit-text:hover {
   background-color: #3899ec;
+  color: white;
+  -webkit-transition: all .25s ease;
+     -moz-transition: all .25s ease;
+      -ms-transition: all .25s ease;
+       -o-transition: all .25s ease;
+          transition: all .25s ease;
+}
+
+.draggable-holder > .menu-edit-container > .menu-edit-events:hover {
+  background-color: #00cccc;
   color: white;
   -webkit-transition: all .25s ease;
      -moz-transition: all .25s ease;
@@ -729,6 +750,62 @@ ul.inline > li {
 }
 
 .draggable-holder > .box-edit-properties > .container label {
+  font-weight: normal;
+}
+
+.draggable-holder > .box-edit-events {
+  position: absolute; 
+  top: -50px; 
+  left: 250px; 
+  width: 740px; 
+  height: 575px;
+  box-shadow: 0 2px 5px 0 rgba(22, 45, 61, 0.58);
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: white;
+  /*font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+}
+
+.draggable-holder > .box-edit-events > .header {
+  border-bottom: 1px solid #d9e1e8;
+  padding-top: 10px;
+  padding-left: 10px;
+  background-color: #00cccc;
+}
+.draggable-holder > .box-edit-events > .header > .title {
+  color: white;
+  font-size: 16px;
+  left: 24px;
+  /*width: 340px;*/
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.draggable-holder > .box-edit-events > .header .event-close-button {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  background-image: url("../icons/x-white.png");
+  background-repeat: no-repeat;
+  float: right;
+  margin-top: 6px;
+  margin-right: 12px;
+}
+
+.draggable-holder > .box-edit-events > .container {
+  height: 505px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin: 10px 0;
+  width: 100%;
+  /*overflow: visible;*/
+  overflow-y: scroll;
+  padding-left: 10px;
+}
+
+.draggable-holder > .box-edit-events > .container label {
   font-weight: normal;
 }
 
