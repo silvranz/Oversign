@@ -1,13 +1,23 @@
-function loadContent(url,windowOption=0,windowTitle="",windowWidth = screen.width,windowHeight = screen.height){
-	if(url=="#")return;
-	var requestedPage = url.split("oversign/")[1];
+function loadContent( url, windowOption, windowTitle, windowWidth, windowHeight ) {
+	windowOption = (typeof windowOption === "undefined" || windowOption === null) ? 0 : windowOption;
+	windowTitle = (typeof windowTitle === "undefined" || windowTitle === null) ? "" : windowTitle;
+	windowWidth = (typeof windowWidth === "undefined" || windowWidth === null) ? screen.width : windowWidth;
+	windowHeight = (typeof windowHeight === "undefined" || windowHeight === null) ? screen.height : windowHeight;
+
+
+	if( url == "#" ){
+		return;
+	}
+
+	var requestedPage = url.split(BASE_URL)[1];
 	var windowHandler = "";
-	if(windowOption == 0)
+	
+	if(windowOption == 0) {
 		history.replaceState({}, null,url);
-	else
-	{
+	} else {
 		windowHandler = window.open("",windowTitle,"scrollbars=1,width="+windowWidth+", height="+windowHeight);
 	}
+
 	$.ajax({
 		type:"POST",
 		url:BASE_URL+"service/",
@@ -28,10 +38,11 @@ function loadContent(url,windowOption=0,windowTitle="",windowWidth = screen.widt
 			}
 		}
 	})
+
 }
 function testConnectionDB(){	
 	$.ajax({
-		url:"http://localhost:8080/oversign/service/engine/get",
+		url:BASE_URL+"service/engine/get",
 		type:"GET",
 		crossDomain:true,
 		success:function(data){
@@ -116,7 +127,7 @@ $(document).ready(function(){
 				"password":$("#txtLoginPassword",loginModal).val(),
 			};
 			$.ajax({
-				url:"http://localhost:8080/oversign/service/user/login",
+				url:BASE_URL+"/service/user/login",
 				data:JSON.stringify(passingData),
 				accept: 'application/json',
 				contentType:"application/json",
@@ -134,7 +145,7 @@ $(document).ready(function(){
 					"confirmPass":$("#txtRegisterConfirmPassword",loginModal).val()
 				};
 			$.ajax({
-				url:"http://localhost:8080/oversign/service/user/register",
+				url:BASE_URL+"/service/user/register",
 				data:JSON.stringify(passingData),
 				accept: 'application/json',
 				contentType:"application/json",
@@ -146,9 +157,9 @@ $(document).ready(function(){
 			})
 		})
 	})
-	$(".clearfix.menuBar #widgetButton").click(function(e){
+	$(".clearfix #widgetButton").click(function(e){
 		e.preventDefault();
-		loadContent("http://localhost/oversign/widget/workshop",1,"Widget workspace");
+		loadContent(BASE_URL+"/widget/workshop",1,"Widget workspace");
 	})
 	$.fn.customPopup = function(mode,animation,time){
 		mode = defaultValue(mode,"fullscreen");
@@ -170,16 +181,16 @@ $(document).ready(function(){
 		}
 		return content;
 	}
-	$.fn.pagination = function(param){
-		if(typeof param.data != "undefined"){
-			param.data = $.extend({},$.fn.pagination.defaults.data,param.data);
-		}
-		var pagination = $.extend({},$.fn.pagination.defaults,param);
-		pagination.parent = this;
-		pagination.item = $(this).find("div.templateItem");
-		$.extend(this[0],$.fn.pagination.methods);
-		this[0].settingPage = pagination;
-		this[0].loadData();
+	$.fn.pagination = function( param ) {
+		// if(typeof param.data != "undefined"){
+		// 	param.data = $.extend({},$.fn.pagination.defaults.data,param.data);
+		// }
+		// var pagination = $.extend({},$.fn.pagination.defaults,param);
+		// pagination.parent = this;
+		// pagination.item = $(this).find("div.templateItem");
+		// $.extend(this[0],$.fn.pagination.methods);
+		// this[0].settingPage = pagination;
+		// this[0].loadData();
 	};
 	$.fn.pagination.defaults = {
 		maxRow:3,

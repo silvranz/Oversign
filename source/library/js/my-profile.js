@@ -4,7 +4,7 @@ $(document).ready(function(){
 		"userid":"3"
 	};
 	$.ajax({
-		url:"http://localhost:8080/oversign/service/myprofile/getprofile",
+		url:BASE_URL+"service/myprofile/getprofile",
 		data:JSON.stringify(passingData),
 		accept: 'application/json',
 		contentType:"application/json",

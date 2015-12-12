@@ -1,5 +1,6 @@
 <?php
-	define("BASEPATH","http://localhost/oversign/");
+	header('Access-Control-Allow-Origin: *');
+	define("BASEPATH","http://ww.ovs.com/");
 	$requestUrl = $_POST["url"];
 	$mappingJSON = @file_get_contents('mapping/'.$requestUrl.'.json');
 	if($mappingJSON==FALSE){

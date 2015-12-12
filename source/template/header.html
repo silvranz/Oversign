@@ -1,14 +1,30 @@
 <!-- Top Navbar -->
 <nav class="clearfix">
-	<ul class="clearfix menuBar">
-		<li class="first"><a href="<?=BASEPATH?>home">Oversign</a></li>
+	<ul class="clearfix pull-menu">
+		<li>
+			<a href="#">Menu
+				<div class="icon-bar-container" style="width:20px;">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</div>
+			</a>
+		</li>	
+	</ul>
+	<ul class="clearfix floleft">
+		<li><a href="<?=BASEPATH?>home">Oversign</a></li>	
+	</ul>
+	<ul class="clearfix floright">
 		<li><a href="<?=BASEPATH?>home">Home</a></li>
-		<li><a href="<?=BASEPATH?>store/template">Template</a></li>
-		<li><a href="<?=BASEPATH?>forum">Forum</a></li>
-		<li><a id="widgetButton" href="#">Widget</a></li>
+		<li><a href="<?=BASEPATH?>template">Template</a></li>
+		<li>
+			<a href="<?=BASEPATH?>widget">Widget</a>
+		</li>
+		<li>
+			<a href="<?=BASEPATH?>help">Help</a>
+		</li>
 		<li>
 			<a href="#" class="md-trigger" data-modal="modal-login">Login</a>
 		</li>	
 	</ul>
-	<a href="#" id="pull">Menu</a>
 </nav>

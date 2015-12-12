@@ -1,0 +1,9 @@
+{
+	"html": [{
+		"source":"my-store.html",
+		"target":""
+	}],
+	"js": [],
+	"css":[],
+	"external":[]
+}

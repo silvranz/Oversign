@@ -1,0 +1,9 @@
+{
+	"html": [{
+		"source":"template.html",
+		"target":""
+	}],
+	"css":[],
+	"js": ["store/template"],
+	"external":[]
+}
