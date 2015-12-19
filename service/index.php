@@ -59,7 +59,7 @@
 						if($subdir == "css"){
 							$listStyle = scandir("../source/library/external/".$external."/".$subdir);
 							foreach($listStyle as $styles){
-								if($styles == "." || $styles == "..") continue;
+								if($styles == "." || $styles == ".."||strpos($styles,'.css') === false) continue;
 								$tempStyle = $retDoc->createElement('link','');
 								$tempStyle->setAttribute ('rel', 'stylesheet');
 								$tempStyle->setAttribute ('type', 'text/css');
@@ -71,7 +71,7 @@
 						else if($subdir == "js"){
 							$listScript = scandir("../source/library/external/".$external."/".$subdir);
 							foreach($listScript as $scripts){
-								if($scripts == "." || $scripts == "..") continue;								
+								if($scripts == "." || $scripts == ".."||strpos($scripts,'.js') === false) continue;								
 								$tempScript = $retDoc->createElement('script',' ');
 								$tempScript->setAttribute ('type', 'text/javascript');
 								$tempScript->setAttribute ('src', BASEPATH.'source/library/external/'.$external."/".$subdir."/".$scripts);

@@ -3,7 +3,7 @@
 		"source":"widget/workshop.html",
 		"target":""
 	}],
-	"js": ["widget/workshop"],
-	"css":["workshop"],
-	"external":["skeleton"]
+	"external":["workspace"],
+	"js": ["widget/workshop","jquery"],
+	"css":["widget/workshop"]
 }

@@ -1,15 +1,39 @@
-<div class="controlPanel">
-	<div class="controlSection">
-		<a href="#">Page</a>
-		<a href="#">Tools</a>
-		<a href="#">Save</a>
-		<a href="#">Preview</a>
-		<a href="#">Publish</a>
+<div class="controlPanel">	
+	<nav class="clearfix">
+		<ul class="clearfix">
+			<li class="first"><a href="index.html">Oversign</a></li>
+			<li><a href="#">Save</a></li>
+			<li><a href="#">Preview</a></li>
+			<li><a id="btnPublish" href="#">Publish</a></li>
+		</ul>
+		<a href="#" id="pull">Menu</a>
+	</nav>
+</div>
+<div class="contentPanel">
+	<div class="leftPanel" style="boder-right:1px solid black">
+		<h4>Shape</h4>
+		<ul>
+			<li class="parent" style="margin-top:20px"><a href="#" style="background-image:url('http://localhost/oversign/source/images/shape/square.png');background-size:100% 100%;padding:10px">Square</a></li>
+			<li class="parent" style="margin-top:20px"><a href="#" style="background-image:url('http://localhost/oversign/source/images/shape/circle.png');background-size:100% 100%;padding:10px">Circle</a></li>
+		</ul>
+		<h4>Image</h4>
+		<ul>
+			<li class="parent"><button>Upload Image</button></li>
+		</ul>
 	</div>
-</div>
-<div class="left-control">
-	<a href="#" class="hvr-shrink left-control-list page"></a>
-	<a href="#" class="hvr-shrink left-control-list plus"></a>
-</div>
-<div class="workshop">
+	<div class="animationPanel">
+		<div class="animationItemTemplate" style="display:none">
+			<input type="text" class="valueControl startFrame" placeholder="Start Animation Time(second)" typeValue="start"/>
+			<input type="text" class="valueControl endFrame"  placeholder="End Animation Time(second)" typeValue="end"/>
+			<select class="valueControl animationType" typeValue="animation" >
+				<option value="0">hide</option>
+				<option value="1">show</option>
+				<option value="2">slideUp</option>
+				<option value="3">slideDown</option>
+			</select>
+		</div>
+		<button id="newAnimation">Add animation</button>
+	</div>
+	<div class="workshop">
+	</div>
 </div>
