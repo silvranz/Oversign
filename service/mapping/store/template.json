@@ -1,9 +1,0 @@
-{
-	"html": [{
-		"source":"store/template.html",
-		"target":""
-	}],
-	"css":["vertical-menu"],
-	"js": ["vertical-menu", "store/template"],
-	"external":[]
-}

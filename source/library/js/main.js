@@ -1,13 +1,23 @@
-function loadContent(url,windowOption=0,windowTitle="",windowWidth = screen.width,windowHeight = screen.height){
-	if(url=="#")return;
-	var requestedPage = url.split("oversign/")[1];
+function loadContent( url, windowOption, windowTitle, windowWidth, windowHeight ) {
+	windowOption = (typeof windowOption === "undefined" || windowOption === null) ? 0 : windowOption;
+	windowTitle = (typeof windowTitle === "undefined" || windowTitle === null) ? "" : windowTitle;
+	windowWidth = (typeof windowWidth === "undefined" || windowWidth === null) ? screen.width : windowWidth;
+	windowHeight = (typeof windowHeight === "undefined" || windowHeight === null) ? screen.height : windowHeight;
+
+
+	if( url == "#" ){
+		return;
+	}
+
+	var requestedPage = url.split(BASE_URL)[1];
 	var windowHandler = "";
-	if(windowOption == 0)
+	
+	if(windowOption == 0) {
 		history.replaceState({}, null,url);
-	else
-	{
+	} else {
 		windowHandler = window.open("",windowTitle,"scrollbars=1,width="+windowWidth+", height="+windowHeight);
 	}
+
 	$.ajax({
 		type:"POST",
 		url:BASE_URL+"service/",
@@ -28,10 +38,11 @@ function loadContent(url,windowOption=0,windowTitle="",windowWidth = screen.widt
 			}
 		}
 	})
+
 }
 function testConnectionDB(){	
 	$.ajax({
-		url:"http://localhost:8080/oversign/service/engine/get",
+		url:BASE_URL+"service/engine/get",
 		type:"GET",
 		crossDomain:true,
 		success:function(data){
@@ -116,7 +127,7 @@ $(document).ready(function(){
 				"password":$("#txtLoginPassword",loginModal).val(),
 			};
 			$.ajax({
-				url:"http://localhost:8080/oversign/service/user/login",
+				url:BASE_URL+"/service/user/login",
 				data:JSON.stringify(passingData),
 				accept: 'application/json',
 				contentType:"application/json",
@@ -134,7 +145,7 @@ $(document).ready(function(){
 					"confirmPass":$("#txtRegisterConfirmPassword",loginModal).val()
 				};
 			$.ajax({
-				url:"http://localhost:8080/oversign/service/user/register",
+				url:BASE_URL+"/service/user/register",
 				data:JSON.stringify(passingData),
 				accept: 'application/json',
 				contentType:"application/json",
@@ -146,25 +157,9 @@ $(document).ready(function(){
 			})
 		})
 	})
-	/*$(".clearfix.menuBar #widgetButton").click(function(e){
+	$(".clearfix #widgetButton").click(function(e){
 		e.preventDefault();
-		loadContent("http://localhost/oversign/widget/workshop",1,"Widget workspace");
-	})*/
-	$(".clearfix.menuBar #widgetButton").click(function(e){
-		e.preventDefault();
-		window.a = {"pages":[{"id":"page1","name":"Page 1","header":{"background_color":"transparent","height":"150px","width":"100%","border_bottom_width":"1px","border_bottom_style":"dotted","border_bottom_color":"gray"},"footer":{"background_color":"transparent","height":"130px","width":"100%","border_top_width":"1px","border_top_style":"dotted","border_top_color":"gray"},"attribute":{"style":{"display":"block","background_color":"rgba(0, 0, 0, 0)"}},"is_homepage":true,"elements":[{"createdOnPage":"page1","attribute":{"id":"container1","classes":"container_box gray draggable_element no_mg grab","element_type":"container","style":{"left":"223px","top":"116px","position":"static","width":"711px","height":"281px"}},"id":"container1","tag":"div","showOnPage":[{"id":"page1","display":true},{"id":"page2","display":false},{"id":"page3","display":false}],"events":[]},{"createdOnPage":"page1","attribute":{"style":{"pointer_events":"none"},"element_type":"text","classes":"draggable_element no_mg grab","id":"text1","showall":"false","parent_style":"word_wrap: break_word; left: 261px; top: 145px; position: static; width: 144px; height: 41px;"},"id":"text1","tag":"div","html":"<h1 class=\'no_mg grab\' style=\'pointer_events: none;\'>Site Title</h1>","showOnPage":[{"id":"page1","display":true},{"id":"page2","display":false},{"id":"page3","display":false}],"events":[]},{"createdOnPage":"page1","attribute":{"id":"button1","type":"button","classes":"button button_danger draggable_element no_mg grab","value":"Button","element_type":"button","style":{"left":"746px","top":"251px","position":"static"}},"id":"button1","tag":"input","showOnPage":[{"id":"page1","display":true},{"id":"page2","display":false},{"id":"page3","display":false}],"events":[]},{"createdOnPage":"page1","attribute":{"style":{"pointer_events":"none"},"element_type":"link","classes":"draggable_element no_mg grab","id":"link1","showall":"false","parent_style":"word_wrap: break_word; left: 1013px; top: 88px; position: static; width: 159.778px; color: rgb(128, 128, 255); border_color: rgb(0, 255, 0); border_radius: 3px; background_color: rgb(255, 128, 255);"},"id":"link1","tag":"div","html":"<h4 id=\'link1\' class=\'no_mg grab\'  style=\'pointer-events: visible;\'>Simple Link</h4>","showOnPage":[{"id":"page1","display":true},{"id":"page2","display":false},{"id":"page3","display":false}],"events":[{"triggerElementId":"link1","triggerOn":"mouse_click","triggerEventCategory":"Mouse","affectingElementID":"","affectingElementType":"","actionCategory":"Navigation","additional_params":{"pageid":"page2"},"_triggerOn":"click","_action":"click","action":"navigation_linkpage"}]},{"createdOnPage":"page1","attribute":{"id":"textbox1","type":"text","classes":"u_full_width draggable_element no_mg grab","element_type":"textbox","style":{"left":"423px","top":"162px","position":"static"}},"id":"textbox1","tag":"input","showOnPage":[{"id":"page1","display":true},{"id":"page2","display":false},{"id":"page3","display":false}],"events":[]},{"createdOnPage":"page1","attribute":{"id":"image1","classes":"draggable_element no_mg grab","src":"images/available_images/4.jpg","element_type":"image","style":{"width":"440px","height":"240px","position":"static","left":"263px","top":"320px"}},"id":"image1","tag":"img","showOnPage":[{"id":"page1","display":true},{"id":"page2","display":false},{"id":"page3","display":false}],"events":[]}]},{"id":"page2","name":"Page 2","header":{"background_color":"transparent","height":"150px","width":"100%","border_bottom_width":"1px","border_bottom_style":"dotted","border_bottom_color":"gray"},"footer":{"background_color":"transparent","height":"130px","width":"100%","border_top_width":"1px","border_top_style":"dotted","border_top_color":"gray"},"attribute":{"style":{"display":"block","background_color":"rgb(208, 34, 227)"}},"is_homepage":false,"elements":[{"createdOnPage":"page2","attribute":{"style":{"pointer_events":"none"},"element_type":"link","classes":"draggable_element no_mg grab","id":"link2","showall":"false","parent_style":"word_wrap: break_word; left: 441px; top: 78px; position: static; width: 159.778px;"},"id":"link2","tag":"div","html":"<h4 id=\'link2\' class=\'no_mg grab\' style=\'pointer-events: visible;\'>Simple Link</h4>","showOnPage":[{"id":"page1","display":false},{"id":"page2","display":true},{"id":"page3","display":false}],"events":[{"triggerElementId":"link2","triggerOn":"mouse_click","triggerEventCategory":"Mouse","affectingElementID":"","affectingElementType":"","actionCategory":"Navigation","additional_params":{"pageid":"page1"},"_triggerOn":"click","_action":"click","action":"navigation_linkpage"}]}]},{"id":"page3","name":"page 3","header":{"background_color":"transparent","height":"110px","width":"100%","border_bottom_width":"1px","border_bottom_style":"dotted","border_bottom_color":"gray"},"footer":{"background_color":"transparent","height":"110px","width":"100%","border_top_width":"1px","border_top_style":"dotted","border_top_color":"gray"},"attribute":{"style":{"display":"block","background":"url(http://localhost/redesign/examples/oversign/images/available_images/3.jpg) 50% 50% / cover no_repeat fixed"}},"is_homepage":false,"elements":[]}],"homepage":"page1","pagename":"Page 1"};
-		console.log(a);
-		$.ajax({
-				url:"http://localhost:8080/oversign/service/store/saveStore",
-				data:JSON.stringify(window.a),
-				accept: 'application/json',
-				contentType:"application/json",
-				type:"POST",
-				crossDomain:true,
-				success:function(data){
-					console.log(data);
-				}
-			})
+		loadContent(BASE_URL+"/widget/workshop",1,"Widget workspace");
 	})
 	$.fn.customPopup = function(mode,animation,time){
 		mode = defaultValue(mode,"fullscreen");
@@ -186,16 +181,16 @@ $(document).ready(function(){
 		}
 		return content;
 	}
-	$.fn.pagination = function(param){
-		if(typeof param.data != "undefined"){
-			param.data = $.extend({},$.fn.pagination.defaults.data,param.data);
-		}
-		var pagination = $.extend({},$.fn.pagination.defaults,param);
-		pagination.parent = this;
-		pagination.item = $(this).find("div.templateItem");
-		$.extend(this[0],$.fn.pagination.methods);
-		this[0].settingPage = pagination;
-		this[0].loadData();
+	$.fn.pagination = function( param ) {
+		// if(typeof param.data != "undefined"){
+		// 	param.data = $.extend({},$.fn.pagination.defaults.data,param.data);
+		// }
+		// var pagination = $.extend({},$.fn.pagination.defaults,param);
+		// pagination.parent = this;
+		// pagination.item = $(this).find("div.templateItem");
+		// $.extend(this[0],$.fn.pagination.methods);
+		// this[0].settingPage = pagination;
+		// this[0].loadData();
 	};
 	$.fn.pagination.defaults = {
 		maxRow:3,

@@ -3,7 +3,18 @@
 		"source":"template-workspace.html",
 		"target":""
 	}],
+	"js": [
+			"template-workspace/keyboard",
+			"template-workspace/ckeditor/ckeditor",
+			"template-workspace/editor",
+			"template-workspace/events",
+			"template-workspace/properties",
+			"functions",
+			"modal/modalEffects",
+			"modal/classie",
+			"jquery-1.11.4-ui", 
+			"jquery-1.11.4"
+		],
 	"external":["workspace"],
-	"js": ["jquery"],
 	"css":[]
 }

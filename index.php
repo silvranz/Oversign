@@ -1,7 +1,9 @@
 <?php 
-	define("BASEPATH","http://localhost/oversign/");
+	header('Access-Control-Allow-Origin: *');
+	define("BASEPATH","/");
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
 		<!-- Basic Page Needs
 		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -15,38 +17,39 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- FONT
 		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-		<link href='<?=BASEPATH?>source/library/external/skeleton/css/font.css' rel='stylesheet' type='text/css'>
+		<link href='source/library/external/skeleton/css/font.css' rel='stylesheet' type='text/css'>
 
 		<!-- CSS
 		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-		<link rel="stylesheet" href="<?=BASEPATH?>source/library/external/skeleton/css/normalize.css">
-		<link rel="stylesheet" href="<?=BASEPATH?>source/library/external/skeleton/css/skeleton.css">
-		<link rel="stylesheet" href="<?=BASEPATH?>source/library/external/skeleton/css/custom.css">
-		<link rel="stylesheet" href="<?=BASEPATH?>source/library/external/skeleton/css/top-navbar.css">
-		<link rel="stylesheet" href="<?=BASEPATH?>source/library/external/skeleton/css/modal.css">
-
-
-	    <script type="text/javascript" src="<?=BASEPATH?>source/library/js/config.js"></script>
-		<script type="text/javascript" src="<?=BASEPATH?>source/library/js/jquery.js"></script>
-	    <script type="text/javascript" src="<?=BASEPATH?>source/library/js/main.js"></script>
-		<script src="<?=BASEPATH?>source/library/js/jquery.min.js"></script>
-		<script src="<?=BASEPATH?>source/js/jquery-1.11.4.js"></script>
-		<script src="<?=BASEPATH?>source/js/jquery-1.11.4-ui.js"></script>
+		<link rel="stylesheet" href="source/library/external/skeleton/css/normalize.css">
+		<link rel="stylesheet" href="source/library/external/skeleton/css/skeleton.css">
+		<link rel="stylesheet" href="source/library/external/skeleton/css/custom.css">
+		<link rel="stylesheet" href="source/library/external/skeleton/css/top-navbar.css">
+		<link rel="stylesheet" href="source/library/external/skeleton/css/modal.css">
 	</head>
+
 	<body>
 		<header>
-			<?php include("source/template/header.html"); ?>
-		</header>		
-		<div id="content" style="padding:60 20 20 20">
-		</div>		
+			<?php 
+					include("source/template/header.html"); 
+			?>
+		</header>	
+
+		<div id="content"></div>		
+		
 		<footer class="bs-docs-footer" role="contentinfo">
-			<?php include("source/template/footer.html"); ?>
+			<?php 
+					include("source/template/footer.html"); 
+			?>
 		</footer>
-		<div class="blocker" style="display:none">
-			<img src="source/images/LoadingCircle.gif" />
+		
+		<div class="blocker loading" style="display:none">
+			<img src="source/images/loader.gif" />
 		</div>
+
 		<!-- Start Of Modal -->
-		  	<!-- Modal Login -->
+		  
+		<!-- Modal Login -->
 		<div class="md-modal md-effect-1" id="modal-login">
 			<div class="md-content">
 				<div class="md-content-header">
@@ -64,14 +67,14 @@
 		          	<div class="row">
 			            <div class="twelve columns">
 			              	<label for="txtLoginEmail">Email</label>
-			              	<input id="txtLoginEmail" class="u-full-width" type="text" placeholder="Ketik email Anda disini &hellip;" />
+			              	<input id="txtLoginEmail" name="txtLoginEmail" class="u-full-width" type="text" placeholder="Ketik email Anda disini &hellip;" />
 			            </div>
 			            <div class="twelve columns">
 			              	<label for="txtLoginPassword">Password</label>
-			              	<input id="txtLoginPassword" class="u-full-width" type="password" placeholder="Ketik password Anda disini &hellip;" />
+			              	<input id="txtLoginPassword" name="txtLoginPassword" class="u-full-width" type="password" placeholder="Ketik password Anda disini &hellip;" />
 			            </div>
 			            <div class="twelve columns taright">
-			            	<a class="button button-primary" href="sites.html">Login</a>
+			            	<a class="button button-primary" id="btnLogin" href="#">Login</a>
 			            </div>
 			            <div class="twelve columns taright">
 			            	Belum punya akun ? <a href="#" class="md-trigger md-replace" data-modal="modal-register">Daftar</a>
@@ -118,14 +121,18 @@
 		          	</div>
 		        </form>
 			</div>
-	</div>
+		</div>
 		<!-- End Of Modal -->
+		
 		<div class="md-overlay"></div><!-- the overlay element -->
 
-			<!-- JS -->
-	<script src="<?=BASEPATH?>source/library/external/skeleton/js/modal/classie.js"></script>
-	<script src="<?=BASEPATH?>source/library/external/skeleton/js/modal/modalEffects.js"></script>
-	<script src="<?=BASEPATH?>source/library/external/skeleton/js/functions.js"></script>
+		<!-- JS -->
+		<script type="text/javascript" src="source/library/js/jquery.min.js"></script>
+	    <script type="text/javascript" src="source/library/js/config.js"></script>
+		<script type="text/javascript" src="source/library/js/main.js"></script>
+		<script type="text/javascript" src="source/library/external/skeleton/js/modal/classie.js"></script>
+		<script type="text/javascript" src="source/library/external/skeleton/js/modal/modalEffects.js"></script>
+		<script type="text/javascript" src="source/library/js/functions.js"></script>
 
 	</body>
 </html>
